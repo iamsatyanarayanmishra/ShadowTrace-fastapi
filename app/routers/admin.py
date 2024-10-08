@@ -1,0 +1,51 @@
+import random
+import string
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from app.models import Company, User
+from app.database import get_db
+from app.services import get_password_hash
+from app.schemas import UserCreationSchema
+router = APIRouter(prefix="/admin", tags=["Admin"])
+
+def generate_user_id():
+    prefix = "S"
+    middle_letter = "T"
+    first_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=2))
+    second_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=2))    
+    user_id = f"{prefix}{first_part}{middle_letter}{second_part}"
+    return user_id
+
+@router.post("/create-user/")
+def create_user(profile_data: UserCreationSchema, db: Session = Depends(get_db)):
+    username = generate_user_id()
+    password = generate_random_password()
+    hashed_password = get_password_hash(password)
+
+    company = db.query(Company).filter(Company.company_name == profile_data.company_name).first()
+    if not company:
+        new_company = Company(
+            company_name=profile_data.company_name,
+            company_address=profile_data.company_address
+        )
+        db.add(new_company)
+        db.flush()  # Ensure the new company is created before assigning it to the user
+        company = new_company  # Now we can use the newly created company
+
+    new_user = User(
+        username=username,
+        company_id=company.id,  
+        password=hashed_password
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return {"username": username, "password": password}
+
+def generate_random_password(length=8):
+    """Generates a random password."""
+    letters = string.ascii_letters
+    digits = string.digits
+    all_chars = letters + digits
+    return ''.join(random.choice(all_chars) for _ in range(length))
