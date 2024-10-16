@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowTrace - IP Scanning</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/call.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            margin-left: 350px;
+            text-align: center;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info-section {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+        }
+
+        .search-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: white;
+            background-color: rgba(255, 252, 252, 0.2);
+        }
+
+        .search-btn, .submit-btn {
+            background-color: #e9f0ea;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .search-btn i {
+            font-size: 18px;
+        }
+
+        .search-btn:hover, .submit-btn:hover {
+            background-color: #00ff00;
+        }
+
+        .submit-container {
+            margin-top: 20px;
+        }
+
+        .terminal {
+            background-color: rgba(11, 7, 7, 0.7);
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+            font-family: monospace;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal .line {
+            display: block;
+        }
+
+        .dashboard-container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 350px;
+            background-color: rgba(13, 31, 48, 0.6);
+            position: fixed;
+            height: 100vh;
+        }
+
+        .profile {
+            margin-top: 70px;
+            padding: 20px;
+        }
+
+        .profile img {
+            width: 100px;
+            border-radius: 50%;
+        }
+
+        .nav-section {
+            margin-top: 15px;
+        }
+
+        .nav-heading {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: white;
+        }
+
+        .nav-heading i {
+            width: 30px;
+        }
+
+        .nav-treeview {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .nav-treeview ul {
+            list-style-type: none;
+        }
+
+        .nav-treeview ul li a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .nav-treeview ul li a i {
+            margin-right: 10px;
+        }
+
+        .background-video video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay muted loop>
+            <source src="./Video/Video2.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+                <a href="index.html">
+                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                </a>
+            </div>
+
+            <div class="profile">
+                <div class="profile-picture">
+                    <img src="./photos/Saty.png" alt="Profile Picture">
+                </div>
+                <p>Name: Satyajit_p_Sambit</p>
+                <p>Mob No: 123-456-7890</p>
+                <p>UId: 123456789012345</p>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-heading" onclick="toggleNavTreeview('social-media-treeview')">
+                    <i class="fa fa-bullseye"></i>
+<span>Scanning</span>
+
+                    <i class="fa fa-angle-right right"></i>
+                </div>
+                <div class="nav-treeview" id="social-media-treeview" style="margin-top: 20px;">
+              <ul>
+                        <li><a href="Ip.html"><i class="fa fa-network-wired"></i>IP Scanning</a></li>
+                        <li><a href="web.html"><i class="fa fa-search"></i>Web Scanning</a></li>
+                        <li><a href="app-scan.html"><i class="fa fa-mobile-alt"></i>App Scanning</a></li>
+                        <li><a href="cloud-scan.html"><i class="fa fa-cloud"></i>Cloud Scanning</a></li>
+                        <li><a href="net.html"><i class="fa fa-globe"></i>Network Scanning</a></li>
+                    </ul>
+                </div>
+            </div>
+
+       
+        </div>
+
+        <div class="main-content" style="margin-left: 350px;margin-top: 150px;">
+            <div class="search-container">
+                <h2 style="color: white;">IP Scanning</h2>
+                <input type="text" id="ip-input" placeholder="Enter IP Address or Range" class="search-input">
+                <button onclick="scanIP()" class="search-btn"><i class="fa fa-network-wired"></i></button>
+            </div>
+
+            <div id="terminal" class="terminal"></div>
+
+            <div class="submit-container">
+                <button onclick="downloadReport()" class="submit-btn" id="download-btn" style="display: none;">
+                    <i class="fa fa-download"></i> Download Report
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jsPDF from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function scanIP() {
+            const ipInput = document.getElementById("ip-input").value;
+            const terminal = document.getElementById("terminal");
+            terminal.innerHTML += `<span class="line">Scanning IP: ${ipInput}...</span><br>`;
+            setTimeout(() => {
+                terminal.innerHTML += `<span class="line">Scan complete. IP Address ${ipInput} has no vulnerabilities.</span><br>`;
+                document.getElementById('download-btn').style.display = 'block';
+            }, 2000);
+        }
+
+        function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const terminalText = document.getElementById("terminal").innerText;
+            doc.text(terminalText, 10, 10);
+            doc.save("scan_report.pdf");
+        }
+
+        function toggleNavTreeview(treeviewId) {
+            const treeview = document.getElementById(treeviewId);
+            const icon = treeview.previousElementSibling.querySelector('.right');
+            if (treeview.style.display === 'block') {
+                treeview.style.display = 'none';
+                icon.classList.remove('fa-angle-down');
+                icon.classList.add('fa-angle-right');
+            } else {
+                treeview.style.display = 'block';
+                icon.classList.remove('fa-angle-right');
+                icon.classList.add('fa-angle-down');
+            }
+        }
+    </script>
+</body>
+</html>

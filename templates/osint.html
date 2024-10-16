@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADOWTRACE - Options</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap">
+    <style>
+        body {
+            font-family: 'Nova Square', sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        #options-placeholder {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .preferences-heading {
+            font-size: 24px; /* Heading size */
+            margin-bottom: 20px; /* Space below heading */
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .option-button {
+            background-color: #073541; /* Green */
+            border: none;
+            color: white;
+            padding: 20px 40px; /* Enlarged button */
+            text-align: center;
+            text-decoration: none;
+            display: flex; /* Use flex for alignment */
+            align-items: center; /* Center SVG and text */
+            justify-content: center; /* Center SVG and text */
+            font-size: 20px; /* Increased font size */
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s; /* Added transform for animation */
+            width: 250px; /* Fixed width */
+        }
+
+        .option-button:hover {
+            background-color: #479cb1; /* Darker green */
+            transform: scale(1.05); /* Slightly enlarge button on hover */
+        }
+
+        .graphic {
+            width: 30px; /* Adjust size of the SVG */
+            height: auto;
+            margin-right: 10px; /* Space between icon and text */
+            transition: transform 0.3s; /* Animation for the icon */
+        }
+
+        .option-button:hover .graphic {
+            transform: rotate(15deg); /* Rotate icon on hover */
+        }
+    </style>
+</head>
+<body>
+    <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+        <a href="index.html">
+            <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 70px;">
+        </a>
+    </div>
+    
+    <div class="background-video">
+        <video id="background-video" autoplay muted loop>
+            <source src="./Video/Y2meta.app-Globalization World Map Animation HD Blue-(1080p).mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div id="options-placeholder">
+        <h2 class="preferences-heading">Select Your Preferences</h2> <!-- Added heading -->
+        <div class="button-container" style="margin-top: -20px;">
+            <button class="option-button" onclick="handleOption('OSINT')">
+                <svg class="graphic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M10.5 2C5.81 2 2 5.81 2 10.5S5.81 19 10.5 19c2.51 0 4.76-1.01 6.36-2.64l4.95 4.95c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-4.95-4.95C18.99 14.26 20 12.01 20 10.5 20 5.81 16.19 2 11.5 2zM10.5 17C7.46 17 5 14.54 5 10.5S7.46 4 10.5 4 16 6.46 16 10.5 13.54 17 10.5 17z"/>
+                    <circle cx="10.5" cy="10.5" r="3" />
+                </svg>
+                OSINT
+            </button>
+            <button class="option-button" onclick="handleOption('E-Discovery')">
+                <svg class="graphic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.63-7-7.93 0-3.31 2.69-6 6-6 1.73 0 3.29.73 4.43 1.9l-3.58 3.58c-.39.39-.39 1.03 0 1.41l5 5c.39.39 1.03.39 1.41 0l2.53-2.53c1.17 1.45 1.92 3.29 1.92 5.04 0 4.15-3.25 7.55-7.43 7.92l-.57-1.36c2.64-.35 4.5-2.58 4.5-5.56 0-2.7-2.2-4.91-4.91-4.91-.75 0-1.46.17-2.09.47l1.55-1.55c.39-.39.39-1.03 0-1.41l-5-5c-.39-.39-1.03-.39-1.41 0l-1.45 1.45C7.68 9.23 6 10.79 6 12c0 3.31 2.69 6 6 6 1.73 0 3.29-.73 4.43-1.9l3.58 3.58c.39.39 1.03.39 1.41 0l2.53-2.53c.5-.5.5-1.26 0-1.76l-5-5c-.39-.39-1.03-.39-1.41 0l-2.53 2.53c-.5.5-.5 1.26 0 1.76l3.58 3.58C15.29 17.73 13.73 18.43 12 18.93V20z"/>
+                </svg>
+                E-Discovery
+            </button>
+        </div>
+    </div>
+    
+    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script type='text/javascript'>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('background-video');
+            video.playbackRate = 0.5; 
+        });
+
+        function handleOption(option) {
+            alert(`You selected: ${option}`);
+            // Add additional functionality here as needed
+        }
+    </script>
+</body>
+</html>

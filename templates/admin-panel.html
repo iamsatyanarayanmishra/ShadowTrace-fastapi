@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowTrace - Cloud Scanning</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/call.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js library -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .dashboard-container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 350px;
+            background-color: #0b1b30;
+            position: fixed;
+            height: 100vh;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile {
+            margin-top: 50px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .admin-box {
+            text-align: center;
+            padding: 15px;
+            background-color: #1b3a6c;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .admin-box h2 {
+            color: white;
+            margin: 0;
+        }
+
+        .company-section {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        /* New Button Box Section */
+        .button-box {
+            padding: 20px;
+            background-color: #0b1b30;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 80%;
+        }
+
+        .button-box h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            background-color: rgba(128, 207, 231, 0.4);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: rgba(50, 152, 184, 0.4);
+        }
+
+        .main-content {
+            margin-left: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 350px);
+            padding: 20px;
+        }
+
+        .chart-container {
+            width: 80%;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+                <a href="index.html">
+                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                </a>
+            </div>
+
+            <!-- Admin Section -->
+            <div class="profile">
+                <div class="admin-box">
+                    <h2>Admin</h2>
+                </div>
+            </div>
+
+            <!-- Button Box Section -->
+            <div class="button-box">
+                <h3>Kristellar Aerospace</h3>
+                <div class="button-container">
+                    <button onclick="location.href='create-user.html'">
+                        <i class="fas fa-user-plus"></i> Create User
+                    </button>
+                    <button onclick="location.href='view-details.html'">
+                        <i class="fas fa-eye"></i> View Details
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <h1>Welcome to Kristellar Aerospace Admin Panel</h1>
+            <p></p>
+           
+
+            <!-- Chart Section -->
+            <div class="chart-container" style="margin-top: 180px;">
+                <canvas id="userChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Chart -->
+    <script>
+        const ctx = document.getElementById('userChart').getContext('2d');
+        const userChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'], // Replace with dynamic data if needed
+                datasets: [{
+                    label: 'Users',
+                    data: [12, 19, 3, 5, 2, 3], // Sample data, replace with real data
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
+</html>

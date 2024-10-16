@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADOWTRACE - Update Profile</title>
+    <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap">
+</head>
+<body>
+    <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+        <a href="/index.html">
+            <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 70px;">
+        </a>
+    </div>
+
+    <div class="background-video">
+        <video id="background-video" autoplay muted loop>
+            <source src="/static/Video/Main video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div id="login-placeholder">
+        <!-- Update Profile Form -->
+        <form id="profile-update-form">
+            <label for="username" style="color: whitesmoke;">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your Username" required>
+            <br>
+            <label for="name" style="color: whitesmoke;">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            <br>
+            <label for="email" style="color: whitesmoke;">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <br>
+            <label for="mobile" style="color: whitesmoke;">Mobile No:</label>
+            <input type="text" id="mobile" name="mobile" placeholder="Enter your mobile number" required>
+            <br>
+            <!-- <label for="dob" style="color: whitesmoke;">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" placeholder="Enter your date of birth" required>
+            <br> -->
+            <label for="address" style="color: whitesmoke;">Address:</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+            <br>
+            <label for="password" style="color: whitesmoke;">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <br>
+            <div class="jeg-elementor-kit jkit-button icon-position-before jeg_module_3978_2_66a7689265bfc">
+                <button type="submit" class="jkit-button-wrapper">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById('profile-update-form').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the form from submitting the default way
+        localStorage.setItem('username', document.getElementById('username').value);
+        const formData = {
+            username: document.getElementById('username').value,
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            mobile: document.getElementById('mobile').value,
+            address: document.getElementById('address').value,
+            password: document.getElementById('password').value
+        };
+    
+        try {
+            const response = await fetch('http://localhost:8000/user/update-profile/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                window.location.href = 'auth.html';  // Adjust the path as necessary
+            } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.detail}`);
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('An error occurred while updating the profile.');
+        }
+    });
+    </script>
+    
+</body>
+</html>

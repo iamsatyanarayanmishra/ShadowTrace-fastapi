@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowTrace</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/call.css" rel="stylesheet">
+    <style>
+        /* Centering the main content */
+      
+           
+        
+    .main-content {
+        margin-left: 250px; /* Ensure the main content starts after the sidebar */
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .info-section {
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.1); /* Smokey transparent background */
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 20px;
+        display: inline-block; /* Center the container */
+    }
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.search-container {
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styling the search input and buttons */
+        .search-input {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: white; /* Change input text color to white */
+            background-color: rgba(255, 252, 252, 0.2); /* Slight transparency for input background */
+        }
+
+        .search-btn, .submit-btn {
+            background-color: #e9f0ea;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .search-btn i {
+            font-size: 18px; /* Size of search icon */
+        }
+
+        .search-btn:hover, .submit-btn:hover {
+            background-color: #00ff00;
+        }
+
+        .submit-container {
+            margin-top: 20px;
+        }
+
+        /* Terminal Styling */
+        .terminal {
+            background-color: rgba(11, 7, 7, 0.7); /* 50% transparency */
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+            font-family: monospace;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal .line {
+            display: block;
+        }
+    #subscription-prompt {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid white;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    #subscription-prompt h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    #subscription-prompt p {
+        margin: 10px 0 0;
+    }
+
+   
+      
+        /* Style adjustments for the main content and sidebar */
+        .dashboard-container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 350px;
+            background-color: rgba(13, 31, 48, 0.6);
+            position: fixed;
+            height: 100vh;
+        }
+
+        .profile {
+            margin-top: 70px;
+            padding: 20px;
+        }
+
+        .profile img {
+            width: 100px;
+            border-radius: 50%;
+        }
+
+        .nav-section {
+            margin-top: 15px;
+        }
+
+        .nav-heading {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: white;
+        }
+
+        .nav-heading i {
+            width: 30px;
+        }
+
+        .nav-treeview {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .nav-treeview ul {
+            list-style-type: none;
+        }
+
+        .nav-treeview ul li a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .nav-treeview ul li a i {
+            margin-right: 10px;
+        }
+
+        .background-video video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        .main-content {
+            margin-left: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 300px);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay muted loop>
+            <source src="./Video/Video2.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div> <!-- Dark overlay -->
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar (unchanged) -->
+         <div class="sidebar">
+            <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+                <a href="index.html">
+                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                </a>
+            </div>
+
+            <div class="profile">
+                <div class="profile-picture">
+                    <img src="./photos/Saty.png" alt="Profile Picture">
+                </div>
+                <p>Name: Satyajit_p_Sambit</p>
+                <p>Mob No: 123-456-7890</p>
+                <p>UId: 123456789012345</p>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-heading" onclick="toggleNavTreeview('social-media-treeview')">
+                    <i class="fa fa-bullseye"></i>
+<span>Scanning</span>
+
+                    <i class="fa fa-angle-right right"></i>
+                </div>
+                <div class="nav-treeview" id="social-media-treeview" style="margin-top: 20px;">
+              <ul>
+                        <li><a href="Ip.html"><i class="fa fa-network-wired"></i>IP Scanning</a></li>
+                        <li><a href="web.html"><i class="fa fa-search"></i>Web Scanning</a></li>
+                        <li><a href="app-scan.html"><i class="fa fa-mobile-alt"></i>App Scanning</a></li>
+                        <li><a href="cloud-scan.html"><i class="fa fa-cloud"></i>Cloud Scanning</a></li>
+                        <li><a href="net.html"><i class="fa fa-globe"></i>Network Scanning</a></li>
+                    </ul>
+                </div>
+            </div>
+
+       
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="margin-left: 350px;margin-top: 150px;">
+            <div class="search-container">
+                <h2 style="color: white;">Web Scanning</h2>
+                <input type="text" id="ip-address-input" placeholder="https://" class="search-input">
+                <button onclick="searchIPAddress()" class="search-btn"><i class="fa fa-search"></i></button>
+            </div>
+
+            <!-- Terminal Section -->
+            <div id="terminal" class="terminal"></div>
+
+            <!-- Download Button -->
+            <div class="submit-container">
+                <button onclick="downloadReport()" class="submit-btn" id="download-btn" style="display: none;">
+                    <i class="fa fa-download"></i> Download Report
+                </button>
+            </div>
+        </div>
+        
+    <!-- Include jsPDF from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        function toggleNavTreeview(id) {
+            const treeview = document.getElementById(id);
+            if (treeview.style.display === 'block') {
+                treeview.style.display = 'none';
+                treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
+            } else {
+                treeview.style.display = 'block';
+                treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
+            }
+        }
+        function searchIPAddress() {
+            const ipAddress = document.getElementById('ip-address-input').value;
+            if (ipAddress) {
+                console.log("Searching for IP address: " + ipAddress);
+                startScan(ipAddress);
+            } else {
+                alert("Please enter a valid URL.");
+            }
+        }
+
+        // Simulate the web scanning process in the terminal
+        function startScan(ipAddress) {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = ''; // Clear terminal
+            const lines = [
+                `Initiating web scan for: ${ipAddress}`,
+                `Connecting to ${ipAddress}...`,
+                'Scanning ports...',
+                'Open ports: 80 (HTTP), 443 (HTTPS)',
+                'Checking for vulnerabilities...',
+                'No critical vulnerabilities found.',
+                'Scan complete.'
+            ];
+
+            let lineIndex = 0;
+            const interval = setInterval(() => {
+                const newLine = document.createElement('span');
+                newLine.classList.add('line');
+                newLine.textContent = lines[lineIndex];
+                terminal.appendChild(newLine);
+                terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
+                lineIndex++;
+
+                if (lineIndex === lines.length) {
+                    clearInterval(interval);
+                    document.getElementById('download-btn').style.display = 'block'; // Show download button after scan
+                }
+            }, 1000); // Add delay between lines to simulate a real scan
+        }
+
+        function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
+
+            // Report content
+            const reportContent = [
+                `Web Scan Report for: ${ipAddress}`,
+                '------------------------',
+                'Ports scanned:',
+                '- 80 (HTTP)',
+                '- 443 (HTTPS)',
+                'Vulnerabilities found:',
+                '- No critical vulnerabilities.',
+                '------------------------',
+                'Scan complete.'
+            ];
+
+            // Add text to the PDF
+            let y = 10; // Starting Y position
+            reportContent.forEach(line => {
+                doc.text(line, 10, y);
+                y += 10; // Move to next line
+            });
+
+            // Save the generated PDF
+            doc.save(`scan_report_${ipAddress}.pdf`);
+        }
+        function searchIPAddress() {
+            const ipAddress = document.getElementById('ip-address-input').value;
+            if (ipAddress) {
+                console.log("Searching for IP address: " + ipAddress);
+                startScan(ipAddress);
+            } else {
+                alert("Please enter a valid URL.");
+            }
+        }
+
+        // Simulate the web scanning process in the terminal
+        function startScan(ipAddress) {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = ''; // Clear terminal
+            const lines = [
+                `Initiating web scan for: ${ipAddress}`,
+                `Connecting to ${ipAddress}...`,
+                'Scanning ports...',
+                'Open ports: 80 (HTTP), 443 (HTTPS)',
+                'Checking for vulnerabilities...',
+                'No critical vulnerabilities found.',
+                'Scan complete.'
+            ];
+
+            let lineIndex = 0;
+            const interval = setInterval(() => {
+                const newLine = document.createElement('span');
+                newLine.classList.add('line');
+                newLine.textContent = lines[lineIndex];
+                terminal.appendChild(newLine);
+                terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
+                lineIndex++;
+
+                if (lineIndex === lines.length) {
+                    clearInterval(interval);
+                    document.getElementById('download-btn').style.display = 'block'; // Show download button after scan
+                }
+            }, 1000); // Add delay between lines to simulate a real scan
+        }
+
+        function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
+
+            // Report content
+            const reportContent = [
+                `Web Scan Report for: ${ipAddress}`,
+                '------------------------',
+                'Ports scanned:',
+                '- 80 (HTTP)',
+                '- 443 (HTTPS)',
+                'Vulnerabilities found:',
+                '- No critical vulnerabilities.',
+                '------------------------',
+                'Scan complete.'
+            ];
+
+            // Add text to the PDF
+            let y = 10; // Starting Y position
+            reportContent.forEach(line => {
+                doc.text(line, 10, y);
+                y += 10; // Move to next line
+            });
+
+            // Save the generated PDF
+            doc.save(`scan_report_${ipAddress}.pdf`);
+        }
+    </script>
+</body>
+</html>

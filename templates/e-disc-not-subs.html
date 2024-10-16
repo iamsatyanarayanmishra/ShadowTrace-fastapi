@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowTrace</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/call.css" rel="stylesheet">
+    <style>
+        /* Centering the main content */
+      
+           
+        
+    .main-content {
+        margin-left: 250px; /* Ensure the main content starts after the sidebar */
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .info-section {
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.1); /* Smokey transparent background */
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 20px;
+        display: inline-block; /* Center the container */
+    }
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.uid-box {
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    margin: 2px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+                .mobile-box {
+                    width: 15px;
+                    height: 20px;
+                    text-align: center;
+                    margin: 2px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f9f9f9; 
+                }
+                
+                /* Mobile Section Styling */
+                .flag-icon {
+                    width: 20px;
+                    height: 30px;
+                    vertical-align: left;
+                }
+                
+                .mobile-number {
+                    display: flex;
+                   
+                }
+                
+                /* Email Section Styling */
+                .email-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .email-box {
+                    width: 110px;
+                    height: 30px;
+                    padding: 0 5px;
+                    text-align: center;
+                    margin: 2px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+                
+                .email-container span {
+                    margin: 0 5px;
+                    font-weight: bold;
+                }
+.sidebar {
+            width: 350px;
+            background-color: rgba(13, 31, 48, 0.6);
+            position: fixed;
+            height: 100vh;
+        }
+
+        .profile {
+            margin-top: 10px;
+            padding: 20px;
+        }
+
+        .profile img {
+            width: 120px;
+            border-radius: 50%;
+        }
+
+        .nav-section {
+            margin-top: 15px;
+        }
+
+        .nav-heading {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: white;
+        }
+
+        .nav-heading i {
+            width: 30px;
+        }
+
+        .nav-treeview {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .nav-treeview ul {
+            list-style-type: none;
+        }
+
+        .nav-treeview ul li a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .nav-treeview ul li a i {
+            margin-right: 10px;
+        }
+
+
+
+    #subscription-prompt {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid white;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    #subscription-prompt h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    #subscription-prompt p {
+        margin: 10px 0 0;
+    }
+
+   
+      
+        /* Style adjustments for the main content and sidebar */
+        .dashboard-container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 350px;
+            background-color:  rgba(13, 31, 48, 0.6);
+            position: fixed;
+            height: 100vh;
+        }
+
+        .main-content {
+            margin-left: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 300px);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay muted loop>
+            <source src="./Video/Video2.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div> <!-- Dark overlay -->
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar (unchanged) -->
+        <div class="sidebar">
+            <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+                <a href="index.html">
+                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                </a>
+            </div>
+
+            <div class="profile">
+                <div class="profile">
+                    <div class="profile-picture" style="text-align: center;">
+                        <img src="./photos/Saty.png" alt="Profile Picture" style="border-radius: 50%; border: 2px solid #fff;">
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <p style="font-weight: bold;">UID</p>
+                        <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                            <input type="text" value="1" readonly class="uid-box">
+                            <input type="text" value="2" readonly class="uid-box">
+                            <input type="text" value="3" readonly class="uid-box">
+                            <input type="text" value="4" readonly class="uid-box">
+                            <input type="text" value="5" readonly class="uid-box">
+                            <input type="text" value="6" readonly class="uid-box">
+                        </div>
+                    </div>
+                
+                    <!-- Mobile Section -->
+                    <div class="mobile" style="text-align: center; margin-top: 20px;">
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <img src="./photos/png-transparent-india-flags-icon.png" alt="Indian Flag" class="flag-icon">
+                            <div class="mobile-number" style="display: flex; margin-left: 5px;">
+                                <input type="text" value="9" readonly class="mobile-box">
+                                <input type="text" value="8" readonly class="mobile-box">
+                                <input type="text" value="7" readonly class="mobile-box">
+                                <input type="text" value="6" readonly class="mobile-box">
+                                <input type="text" value="5" readonly class="mobile-box">
+                                <input type="text" value="4" readonly class="mobile-box">
+                                <input type="text" value="3" readonly class="mobile-box">
+                                <input type="text" value="2" readonly class="mobile-box">
+                                <input type="text" value="1" readonly class="mobile-box">
+                                <input type="text" value="0" readonly class="mobile-box">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Email Section -->
+                    <div class="email" style="text-align: center; margin-top: 20px;">
+                        <div class="email-container">
+                            <input type="text" value="example" readonly class="email-box">
+                            <span>@</span>
+                            <input type="text" value="example.com" readonly class="email-box">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-heading" onclick="toggleNavTreeview('social-media-treeview')">
+                    <i class="fa fa-bullseye"></i>
+<span>Scanning</span>
+
+                    <i class="fa fa-angle-right right"></i>
+                </div>
+                <div class="nav-treeview" id="social-media-treeview" style="margin-top: 20px;">
+                    <ul>
+                        <li><a href="Ip.html"><i class="fa fa-network-wired"></i>IP Scanning</a></li>
+                        <li><a href="web.html"><i class="fa fa-search"></i>Web Scanning</a></li>
+                        <li><a href="app-scan.html"><i class="fa fa-mobile-alt"></i>App Scanning</a></li>
+                        <li><a href="cloud-scan.html"><i class="fa fa-cloud"></i>Cloud Scanning</a></li>
+                        <li><a href="net.html"><i class="fa fa-globe"></i>Network Scanning</a></li>
+                    </ul>
+                </div>
+            </div>
+
+       
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="margin-top: 200px;">
+            <h1 style="color: white;">Welcome to E-Discovery</h1>
+            <div class="info-section">
+                <p style="color: white;">Here is some information about your profile and options available.</p>
+                <div id="subscription-prompt">
+                    <h2 style="color: white;">Not Subscribed?</h2>
+                    <p>
+                        <a href="subscribe.html" style="color: rgb(1, 34, 60); text-decoration: underline;">Subscribe Now</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+    <!-- Include jsPDF from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        function toggleNavTreeview(id) {
+            const treeview = document.getElementById(id);
+            if (treeview.style.display === 'block') {
+                treeview.style.display = 'none';
+                treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
+            } else {
+                treeview.style.display = 'block';
+                treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
+            }
+        }
+
+        function searchIPAddress() {
+            const ipAddress = document.getElementById('ip-address-input').value;
+            if (ipAddress) {
+                console.log("Searching for IP address: " + ipAddress);
+                startScan(ipAddress);
+            } else {
+                alert("Please enter a valid URL.");
+            }
+        }
+
+        // Simulate the web scanning process in the terminal
+        function startScan(ipAddress) {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = ''; // Clear terminal
+            const lines = [
+                `Initiating web scan for: ${ipAddress}`,
+                `Connecting to ${ipAddress}...`,
+                'Scanning ports...',
+                'Open ports: 80 (HTTP), 443 (HTTPS)',
+                'Checking for vulnerabilities...',
+                'No critical vulnerabilities found.',
+                'Scan complete.'
+            ];
+
+            let lineIndex = 0;
+            const interval = setInterval(() => {
+                const newLine = document.createElement('span');
+                newLine.classList.add('line');
+                newLine.textContent = lines[lineIndex];
+                terminal.appendChild(newLine);
+                terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
+                lineIndex++;
+
+                if (lineIndex === lines.length) {
+                    clearInterval(interval);
+                    document.getElementById('download-btn').style.display = 'block'; // Show download button after scan
+                }
+            }, 1000); // Add delay between lines to simulate a real scan
+        }
+
+        function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
+
+            // Report content
+            const reportContent = [
+                `Web Scan Report for: ${ipAddress}`,
+                '------------------------',
+                'Ports scanned:',
+                '- 80 (HTTP)',
+                '- 443 (HTTPS)',
+                'Vulnerabilities found:',
+                '- No critical vulnerabilities.',
+                '------------------------',
+                'Scan complete.'
+            ];
+
+            // Add text to the PDF
+            let y = 10; // Starting Y position
+            reportContent.forEach(line => {
+                doc.text(line, 10, y);
+                y += 10; // Move to next line
+            });
+
+            // Save the generated PDF
+            doc.save(`scan_report_${ipAddress}.pdf`);
+        }
+    </script>
+</body>
+</html>

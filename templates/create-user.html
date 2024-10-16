@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Subscription Form - Kristellar Aerospace</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .dashboard-container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 350px;
+            background-color: #0b1b30;
+            position: fixed;
+            height: 100vh;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile {
+            margin-top: 50px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .admin-box {
+            text-align: center;
+            padding: 15px;
+            background-color: #1b3a6c;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .admin-box h2 {
+            color: white;
+            margin: 0;
+        }
+
+        .main-content {
+            margin-left: 350px;
+            padding: 20px;
+            width: calc(100% - 350px);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container form label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-container form input[type="text"],
+        .form-container form textarea {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .form-container form input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .form-container form input[type="submit"] {
+            background-color: #0b1b30;
+            color: white;
+            border: none;
+            cursor: pointer;
+            height: 50px; /* Set height */
+            width: 200px;  /* Set width */
+            font-size: 16px; /* Adjust font size */
+            display: flex;
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .form-container form input[type="submit"]:hover {
+            background-color: #1b3a6c;
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        .form-container form input[type="submit"] .icon {
+            margin-right: 8px; /* Space between icon and text */
+            font-size: 18px; /* Adjust icon size */
+            transition: transform 0.3s ease;
+        }
+
+        .form-container form input[type="submit"]:hover .icon {
+            transform: rotate(20deg); /* Rotate icon on hover */
+        }
+
+        .form-container .error-message {
+            color: red;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .subscription-options {
+    display: flex;
+    align-items: center; /* Aligns the items vertically */
+    margin-top: 10px; /* Adds some spacing above the options */
+}
+
+.subscription-options label {
+    margin-right: 20px; /* Spacing between the options */
+}
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+                <a href="index.html">
+                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                </a>
+            </div>
+
+            <!-- Admin Section -->
+            <div class="profile">
+                <div class="admin-box">
+                    <h2>Admin</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <h1>Create User Form</h1>
+            <div class="form-container">
+                <form id="subscription-form">
+                    <label for="company-name">Company Name:</label>
+                    <input type="text" id="company-name" name="companyName" placeholder="Enter company name" required>
+
+                    <label for="company-address">Company Address:</label>
+                    <textarea id="company-address" name="companyAddress" rows="4" placeholder="Enter company address" required></textarea>
+
+                    <label>Subscription For:</label>
+                    <div class="subscription-options">
+                        <label>
+                            <input type="checkbox" id="osint" name="subscription" value="OSINT">
+                            OSINT
+                        </label>
+                        <label>
+                            <input type="checkbox" id="ediscovery" name="subscription" value="E-Discovery">
+                            E-Discovery
+                        </label>
+                    </div>
+                    
+               
+                    <div class="error-message" id="form-error"></div>
+
+                    <input type="submit" value="Submit Subscription" style="margin-left: 150px;">
+                   <!-- Add an icon here -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('subscription-form');
+        const errorMessage = document.getElementById('form-error');
+
+        // Event listener for form submission
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const companyName = document.getElementById('company-name').value;
+            const companyAddress = document.getElementById('company-address').value;
+            const osint = document.getElementById('osint').checked;
+            const ediscovery = document.getElementById('ediscovery').checked;
+
+            // Basic form validation
+            if (!companyName || !companyAddress || (!osint && !ediscovery)) {
+                errorMessage.textContent = "Please fill all fields and select at least one subscription.";
+                errorMessage.style.display = "block";
+            } else {
+                errorMessage.style.display = "none";
+                alert(`Subscription for ${companyName} submitted successfully.`);
+                // Further form submission logic (e.g., sending data to a server) goes here
+            }
+        });
+    </script>
+</body>
+</html>

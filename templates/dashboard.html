@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowTrace</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
+
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay muted loop>
+            <source src="./Video/Video2.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div> <!-- Dark overlay -->
+    </div>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowTrace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container">
+        
+        <video class="background-video" autoplay muted loop>
+            <source src="./Video/Video2.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        
+        <div class="dashboard-container">
+           
+            <div class="sidebar">
+                <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+                    <a href="index.html">
+                        <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                    </a>
+                </div>
+
+                <div class="profile" style="margin-top: 70px;">
+                    <div class="profile">
+                        <div class="profile-picture" style="text-align: center;">
+                            <img src="./photos/Saty.png" alt="Profile Picture" style="border-radius: 50%; border: 2px solid #fff;">
+                        </div>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <p style="font-weight: bold;">UID</p>
+                            <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                                <input type="text" value="1" readonly class="uid-box">
+                                <input type="text" value="2" readonly class="uid-box">
+                                <input type="text" value="3" readonly class="uid-box">
+                                <input type="text" value="4" readonly class="uid-box">
+                                <input type="text" value="5" readonly class="uid-box">
+                                <input type="text" value="6" readonly class="uid-box">
+                            </div>
+                        </div>
+                    
+                        <!-- Mobile Section -->
+                        <div class="mobile" style="text-align: center; margin-top: 20px;">
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <img src="./photos/png-transparent-india-flags-icon.png" alt="Indian Flag" class="flag-icon">
+                                <div class="mobile-number" style="display: flex; margin-left: 5px;">
+                                    <input type="text" value="9" readonly class="mobile-box">
+                                    <input type="text" value="8" readonly class="mobile-box">
+                                    <input type="text" value="7" readonly class="mobile-box">
+                                    <input type="text" value="6" readonly class="mobile-box">
+                                    <input type="text" value="5" readonly class="mobile-box">
+                                    <input type="text" value="4" readonly class="mobile-box">
+                                    <input type="text" value="3" readonly class="mobile-box">
+                                    <input type="text" value="2" readonly class="mobile-box">
+                                    <input type="text" value="1" readonly class="mobile-box">
+                                    <input type="text" value="0" readonly class="mobile-box">
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Email Section -->
+                        <div class="email" style="text-align: center; margin-top: 20px;">
+                            <div class="email-container">
+                                <input type="text" value="example" readonly class="email-box">
+                                <span>@</span>
+                                <input type="text" value="example.com" readonly class="email-box">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-section" style="margin-top: 15px;">
+                    <div class="nav-heading" onclick="toggleNavTreeview('social-media-treeview')">
+                        <i class="fa fa-share-alt"></i>
+                        <span>Social Media Apps</span>
+                        <i class="fa fa-angle-down right"></i>
+                    </div>
+                    <div class="nav-treeview" id="social-media-treeview">
+                        <ul>
+                            <li><a href="whatsapp.html"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+                            <li><a href="fb.html"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+                            <li><a href="insta.html"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                            <li><a href="snap.html"><i class="fa-brands fa-snapchat"></i> Snapchat</a></li>
+                            <li><a href="tele.html"><i class="fa-brands fa-telegram"></i> Telegram</a></li>
+                            <li><a href="x.html"><i class="fa-brands fa-x"></i>X</a></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-heading" onclick="toggleNavTreeview('live-treeview')">
+                        <i class="fa fa-video"></i>
+                        <span>Live</span>
+                        <i class="fa fa-angle-down right"></i>
+                    </div>
+                    <div class="nav-treeview" id="live-treeview">
+                        <ul>
+                            <li><a href="call logs.html"><i class="fa fa-phone"></i> Call Logs</a></li>
+                            <li><a href="recording.html"><i class="fa fa-microphone"></i>Ambient</a></li>
+                            <li><a href="Photos.html"><i class="fa fa-camera"></i>Photos</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- New Scanning Section -->
+               
+                
+               
+            </div>
+
+            <div class="main-content">
+                <div class="grid-container">
+                    <div class="section" id="profile">
+                        <h3>SOCIAL PROFILE</h3>
+                        <p>WhatsApp ID: +1234567890</p>
+                        <p>Instagram: Satyajit_p_Sambit</p>
+                        <p>Facebook: facebook.com/Satyajit.profile</p>
+                        <p>Snapchat: Satyajit_snap</p>
+                        <p>Telegram: @Satyajit_telegram</p>
+                    </div>
+                
+                  
+                    <div class="section" id="mobile-info">
+                        <h3>MOBILE PROFILE</h3>
+                        <p id="mobile-model">Model: Loading...</p>
+                        <p id="mobile-version">Version: Loading...</p>
+                        <p id="mobile-os">OS: Loading...</p>
+                    </div>
+                    <div class="section" id="current-location">
+                        <h3>CURRENT LOCATION</h3>
+                        <div class="map-container" id="current-location-map"></div>
+                    </div>
+                    <div class="section" id="notifications">
+                        <h3>NOTIFICATIONS</h3>
+                        <div id="notifications-list">
+                            <!-- Notifications will be dynamically inserted here -->
+                        </div>
+                        <style>#notifications {
+                            background: rgba(236, 255, 253, 0.4);
+                            padding: 20px;
+                            border-radius: 25px;
+                            color: aliceblue;
+                           
+                        }
+                        
+                        .notification {
+                            padding: 10px;
+                            border-bottom: 1px solid #000;
+                        }
+                        
+                        .notification:last-child {
+                            border-bottom: none;
+                        }
+                        .uid-box {
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    margin: 2px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+                .mobile-box {
+                    width: 15px;
+                    height: 20px;
+                    text-align: center;
+                    margin: 2px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f9f9f9; 
+                }
+                
+                /* Mobile Section Styling */
+                .flag-icon {
+                    width: 20px;
+                    height: 30px;
+                    vertical-align: left;
+                }
+                
+                .mobile-number {
+                    display: flex;
+                   
+                }
+                
+                /* Email Section Styling */
+                .email-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .email-box {
+                    width: 110px;
+                    height: 30px;
+                    padding: 0 5px;
+                    text-align: center;
+                    margin: 2px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+                
+                .email-container span {
+                    margin: 0 5px;
+                    font-weight: bold;
+                }
+                        </style>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleNavTreeview(id) {
+            const treeview = document.getElementById(id);
+            if (treeview.style.display === 'block') {
+                treeview.style.display = 'none';
+                treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
+            } else {
+                treeview.style.display = 'block';
+                treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            function fetchMobileInfo() {
+                return {
+                    model: 'Samsung Galaxy S21',
+                    version: 'Android 11',
+                    os: 'Exynos 2100'
+                };
+            }
+
+            const mobileInfo = fetchMobileInfo();
+            document.getElementById('mobile-model').textContent = 'Model: ' + mobileInfo.model;
+            document.getElementById('mobile-version').textContent = 'Version: ' + mobileInfo.version;
+            document.getElementById('mobile-os').textContent = 'OS: ' + mobileInfo.os;
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+    function fetchNotifications() {
+        return [
+            { type: 'SMS', content: 'You have a new message from John.' },
+            { type: 'Email', content: 'Your invoice for July has been sent.' },
+            { type: 'Alert', content: 'Reminder: Meeting at 3 PM.' }
+        ];
+    }
+
+    function displayNotifications() {
+        const notifications = fetchNotifications();
+        const notificationsList = document.getElementById('notifications-list');
+        
+        notificationsList.innerHTML = notifications.map(notification => `
+            <div class="notification">
+                <strong>${notification.type}:</strong> ${notification.content}
+            </div>
+        `).join('');
+    }
+
+    displayNotifications();
+});
+document.addEventListener('DOMContentLoaded', function () {
+    function fetchSocialMediaAccounts() {
+        return {
+            whatsapp: '+1234567890',
+            instagram: '@ayushi_insta',
+            facebook: 'facebook.com/ayushi.profile',
+            snapchat: 'ayushi_snap',
+            telegram: '@ayushi_telegram'
+        };
+    }
+
+    const accounts = fetchSocialMediaAccounts();
+    document.getElementById('whatsapp-id').textContent = 'WhatsApp ID: ' + accounts.whatsapp;
+    document.getElementById('instagram-id').textContent = 'Instagram: ' + accounts.instagram;
+    document.getElementById('facebook-id').textContent = 'Facebook: ' + accounts.facebook;
+    document.getElementById('snapchat-id').textContent = 'Snapchat: ' + accounts.snapchat;
+    document.getElementById('telegram-id').textContent = 'Telegram: ' + accounts.telegram;
+});
+
+
+    </script>
+    <!-- Add your Google Maps API key here -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"></script>
+</body>
+</html>
+
+
+    <script>
+        function initMap() {
+            // Initialize the archive location map
+            const archiveLocationMap = new google.maps.Map(document.getElementById('archive-location-map'), {
+                center: { lat: -34.397, lng: 150.644 }, // Replace with actual coordinates
+                zoom: 8
+            });
+
+            // Initialize the current location map
+            const currentLocationMap = new google.maps.Map(document.getElementById('current-location-map'), {
+                center: { lat: -34.397, lng: 150.644 }, // Replace with actual coordinates
+                zoom: 8
+            });
+        }
+
+        function toggleNavTreeview(id) {
+            const treeview = document.getElementById(id);
+            if (treeview.style.display === 'block') {
+                treeview.style.display = 'none';
+                treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
+            } else {
+                treeview.style.display = 'block';
+                treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            function fetchMobileInfo() {
+                return {
+                    model: 'Samsung Galaxy S21',
+                    version: 'Android 11',
+                    os: 'Exynos 2100'
+                };
+            }
+
+            const mobileInfo = fetchMobileInfo();
+            document.getElementById('mobile-model').textContent = 'Model: ' + mobileInfo.model;
+            document.getElementById('mobile-version').textContent = 'Version: ' + mobileInfo.version;
+            document.getElementById('mobile-os').textContent = 'OS: ' + mobileInfo.os;
+        });
+    </script>
+    <!-- Add your Google Maps API key here -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"></script>
+</body>
+</html>

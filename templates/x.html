@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Scanner Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex; /* Use flexbox for layout */
+        }
+
+      
+    
+
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three charts per row */
+            gap: 20px;
+            padding: 20px;
+            flex: 1; /* Allow the charts to take available space */
+        }
+
+        .chart {
+            width: 100%;
+            height: 200px;
+            border-radius: 5px;
+        }
+
+        .chart-title {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .sidebar {
+            width: 350px;
+            background-color: rgba(13, 31, 48, 0.6);
+            position: fixed;
+            height: 100vh;
+        }
+
+        .profile {
+            margin-top: 70px;
+            padding: 20px;
+        }
+
+        .profile img {
+            width: 100px;
+            border-radius: 50%;
+        }
+
+        .nav-section {
+            margin-top: 15px;
+        }
+
+        .nav-heading {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: white;
+        }
+
+        .nav-heading i {
+            width: 30px;
+        }
+
+        .nav-treeview {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .nav-treeview ul {
+            list-style-type: none;
+        }
+
+        .nav-treeview ul li a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .nav-treeview ul li a i {
+            margin-right: 10px;
+        }
+        .container {
+            margin-left: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 300px);
+        }
+    </style>
+    <script defer>
+  function toggleNavTreeview(id) {
+            const treeview = document.getElementById(id);
+            if (treeview.style.display === 'block') {
+                treeview.style.display = 'none';
+                treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
+            } else {
+                treeview.style.display = 'block';
+                treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const scanTime = new Date().toLocaleTimeString();
+            const finishTime = new Date(new Date().getTime() + 30 * 60000).toLocaleTimeString(); // 30 minutes later
+            const testsConducted = 5;
+            const totalTime = "30 minutes";
+
+            document.getElementById('scanTime').textContent = scanTime;
+            document.getElementById('finishTime').textContent = finishTime;
+            document.getElementById('testsConducted').textContent = testsConducted;
+            document.getElementById('totalTime').textContent = totalTime;
+
+            // Severity Trend (Line Chart)
+            const severityTrendCtx = document.getElementById('severityTrend').getContext('2d');
+            new Chart(severityTrendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Severity Trend',
+                        data: [10, 15, 5, 20],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Severities Donut Chart
+            const severityDonutCtx = document.getElementById('severityDonut').getContext('2d');
+            new Chart(severityDonutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['High', 'Medium', 'Low', 'Information', 'Best Practice'],
+                    datasets: [{
+                        label: 'Severities',
+                        data: [12, 19, 3, 5, 2],
+                        backgroundColor: [
+                            '#ff6384',
+                            '#36a2eb',
+                            '#ffce56',
+                            '#4bc0c0',
+                            '#9966ff'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            // Issues Histogram
+            const issuesHistogramCtx = document.getElementById('issuesHistogram').getContext('2d');
+            new Chart(issuesHistogramCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Critical', 'High', 'Medium', 'Low', 'Information'],
+                    datasets: [{
+                        label: 'Issues Count',
+                        data: [5, 15, 10, 2, 8],
+                        backgroundColor: [
+                            '#ff3838',
+                            '#ff9e2c',
+                            '#f6f400',
+                            '#2cf600',
+                            '#00b4ff'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Dropdown functionality for scanning treeview
+            const dropdownHeading = document.querySelector('.nav-heading');
+            const treeview = document.querySelector('.nav-treeview');
+
+            dropdownHeading.addEventListener('click', () => {
+                treeview.style.display = treeview.style.display === 'none' || treeview.style.display === '' ? 'block' : 'none';
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+            <a href="index.html">
+                <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+            </a>
+        </div>
+
+        <div class="profile">
+            <div class="profile-picture">
+                <img src="./photos/Saty.png" alt="Profile Picture">
+            </div>
+            <p>Name: Satyajit_p_Sambit</p>
+            <p>Mob No: 123-456-7890</p>
+            <p>UId: 123456789012345</p>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-heading" onclick="toggleNavTreeview('social-media-treeview')">
+                <i class="fa fa-bullseye"></i>
+                <span>Scanning</span>
+
+                <i class="fa fa-angle-right right"></i>
+            </div>
+            <div class="nav-treeview" id="social-media-treeview" style="margin-top: 20px;">
+          <ul>
+                    <li><a href="Ip.html"><i class="fa fa-network-wired"></i>IP Scanning</a></li>
+                    <li><a href="web.html"><i class="fa fa-search"></i>Web Scanning</a></li>
+                    <li><a href="app-scan.html"><i class="fa fa-mobile-alt"></i>App Scanning</a></li>
+                    <li><a href="cloud-scan.html"><i class="fa fa-cloud"></i>Cloud Scanning</a></li>
+                    <li><a href="net.html"><i class="fa fa-globe"></i>Network Scanning</a></li>
+                </ul>
+            </div>
+        </div>
+
+   
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Vulnerability Scanner Dashboard</h1>
+        </header>
+
+        <section class="overview">
+            <h2>Security Overview</h2>
+            <div class="info-grid">
+                <div>Scan Start Time: <span id="scanTime"></span></div>
+                <div>Finish Time: <span id="finishTime"></span></div>
+                <div>Tests Conducted: <span id="testsConducted"></span></div>
+                <div>Total Time: <span id="totalTime"></span></div>
+            </div>
+        </section>
+
+        <section class="charts">
+            <div class="chart">
+                <h3 class="chart-title">Severity Trend</h3>
+                <canvas id="severityTrend"></canvas>
+            </div>
+            <div class="chart">
+                <h3 class="chart-title">Severities Donut</h3>
+                <canvas id="severityDonut"></canvas>
+            </div>
+            <div class="chart">
+                <h3 class="chart-title">Issues Histogram</h3>
+                <canvas id="issuesHistogram"></canvas>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Messenger</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
+    <style>
+        .chat-item:hover {
+            background-color: #e2afd2; /* Light pink background on hover */
+            color: #fff; /* Change text color to white */
+        }
+    </style>
+</head>
+<body style="font-family: 'Nova Square', cursive; margin: 0; display: flex; flex-direction: column; align-items: center; height: 100vh; background-color: #f0f0f0; position: relative; overflow: hidden;">
+    <div class="background-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+        <video class="background-video" autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="./Video/Index video.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);"></div>
+    </div>
+    
+    <div class="header" style="display: flex; align-items: center; width: 100%; padding: 10px; background-color: transparent;">
+        <a href="index.html">
+            <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" class="company-logo" style="height: 60px; margin-left: 20px;">
+        </a>
+    </div>
+    
+    <div class="mac-desktop" style="width: 80%; height: 80%; background-color: #ccc; border-radius: 15px; position: relative; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); overflow: hidden; margin-top: 20px; margin-left: 40px;">
+        <div class="top-bar" style="height: 30px; background: #ddd; border-bottom: 1px solid #ccc;"></div>
+        <div class="screen" style="width: 100%; height: calc(100% - 70px); background-color: #fff; display: flex; flex-direction: column;">
+            <div class="container" style="display: flex; width: 100%; height: 100%;">
+                <div class="sidebar" style="width: 25%; background-color: #BB9AB1; color: white; display: flex; flex-direction: column;">
+                    <a href="dashboard.html" class="back-arrow" style="color: white; text-decoration: none; font-size: 24px; padding: 15px;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div class="sidebar-header" style="display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #ddd;">
+                        <i class="fab fa-instagram" style="font-size: 24px; margin-right: 10px;"></i>
+                        <h2 style="margin: 0;">Conversations</h2>
+                    </div>
+                    <ul class="chat-list" style="list-style: none; padding: 0; margin: 0; overflow-y: auto;">
+                        <li class="chat-item" onclick="openChat('chat1')" style="display: flex; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd;">
+                            <img src="photos/john.jpg" alt="John Doe" class="profile-pic" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                            <span>John Doe</span>
+                        </li>
+                        <li class="chat-item" onclick="openChat('chat2')" style="display: flex; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd;">
+                            <img src="photos/jane.png" alt="Jane Smith" class="profile-pic" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                            <span>Jane Smith</span>
+                        </li>
+                        <li class="chat-item" onclick="openChat('chat3')" style="display: flex; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd;">
+                            <img src="photos/priyanka.JPG" alt="Alice Johnson" class="profile-pic" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                            <span>Alice Johnson</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chat-area" style="width: 75%; background-color: #f0f2f5; padding: 20px; display: flex; flex-direction: column; overflow-y: auto;">
+                    <div id="chat1" class="chat" style="display: none;">
+                        <div class="message received" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-start;">
+                            <img src="photos/john.jpg" alt="John Doe" class="profile-pic-small" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                            <div class="message-content" style="background-color: #ddb5d1; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Hello John!</div>
+                        </div>
+                        <div class="message sent" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="message-content" style="background-color: #fff; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Hi there!</div>
+                        </div>
+                        <div class="message received" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-start;">
+                            <img src="photos/john.jpg" alt="John Doe" class="profile-pic-small" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                            <div class="message-content" style="background-color: #ddb5d1; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">How are you doing?</div>
+                        </div>
+                        <div class="message sent" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="message-content" style="background-color: #fff; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">I'm good, thanks! How about you?</div>
+                        </div>
+                        <div class="message received" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-start;">
+                            <img src="photos/john.jpg" alt="John Doe" class="profile-pic-small" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                            <div class="message-content" style="background-color: #ddb5d1; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">I'm doing well, just working on a project.</div>
+                        </div>
+                        <div class="message sent" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="message-content" style="background-color: #fff; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Sounds great! Keep me posted.</div>
+                        </div>
+                    </div>
+                    <div id="chat2" class="chat" style="display: none;">
+                        <!-- Chat 2 content -->
+                    </div>
+                    <div id="chat3" class="chat" style="display: none;">
+                        <!-- Chat 3 content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openChat(chatId) {
+            document.querySelectorAll('.chat').forEach(chat => {
+                chat.style.display = 'none';
+            });
+            document.getElementById(chatId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>

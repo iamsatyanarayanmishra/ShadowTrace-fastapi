@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristellar Aerospace - 2FA</title>
+    <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
+    <link rel="stylesheet" href="/static/css/styles.css"> <!-- Ensure you have your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap"> <!-- Nova Square Font -->
+    <style>
+        .verification-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 5px; /* Space between boxes */
+        }
+
+        .verification-box {
+            width: 30px; /* Width of each box */
+            height: 30px; /* Height of each box */
+            font-size: 16px; /* Font size */
+            text-align: center; /* Center text */
+            border: 2px solid #ffffff; /* Border color */
+            background-color: rgba(255, 255, 255, 0.2); /* Background color */
+            color: whitesmoke; /* Text color */
+            border-radius: 5px; /* Rounded corners */
+        }
+    </style>
+</head>
+<body>
+    <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+        <a href="index.html">
+            <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 70px;">
+        </a>
+    </div>
+    
+    <div class="background-video">
+        <video autoplay muted loop>
+            <source src="/static/Video/Main video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div> <!-- Dark overlay -->
+    </div>
+
+    <div id="twofa-placeholder">
+        <h2 class="login-heading">Authentication</h2>
+
+        <!-- OTP Input Fields -->
+        <form id="otp-form">
+            <div class="verification-inputs" style="margin-top: 10px;">
+                <input type="text" maxlength="1" class="verification-box" required>
+                <input type="text" maxlength="1" class="verification-box" required>
+                <input type="text" maxlength="1" class="verification-box" required>
+                <input type="text" maxlength="1" class="verification-box" required>
+                <input type="text" maxlength="1" class="verification-box" required>
+                <input type="text" maxlength="1" class="verification-box" required>
+            </div>
+            <br>
+            <div class="jeg-elementor-kit jkit-button icon-position-before jeg_module_3978_2_66a7689265bfc">
+                <button type="submit" class="jkit-button-wrapper">Submit OTP</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
+    <script type='text/javascript'>
+        document.addEventListener('DOMContentLoaded', function () {
+            const verificationBoxes = document.querySelectorAll('.verification-box');
+            const form = document.getElementById('otp-form');
+            const username = localStorage.getItem('username')
+
+            // Focus logic for moving between OTP input boxes
+            verificationBoxes.forEach((box, index) => {
+                box.addEventListener('input', () => {
+                    if (box.value.length >= 1 && index < verificationBoxes.length - 1) {
+                        verificationBoxes[index + 1].focus();
+                    }
+                });
+
+                box.addEventListener('keydown', (event) => {
+                    if (event.key === 'Backspace' && box.value.length === 0 && index > 0) {
+                        verificationBoxes[index - 1].focus();
+                    }
+                });
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();  // Prevent default form submission
+                // Collect the OTP from the input boxes
+                let otp = '';
+                verificationBoxes.forEach(box => {
+                    otp += box.value;
+                });
+
+                // Ensure OTP is 6 digits
+                if (otp.length !== 6) {
+                    alert('Please enter a 6-digit OTP.');
+                    return;
+                }
+
+                // Prepare the OTP data
+                const otpData = {
+                    username : username,
+                    otp: otp
+                };
+
+                try {
+                    // Make the POST request to the OTP verification endpoint
+                    const response = await fetch(`http://localhost:8000/user/verify-email/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(otpData),
+                    });
+
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // If OTP is correct, redirect to the next page
+                        alert(data.message);
+                        window.location.href = 'osint-not-subs.html';  // Redirect to dashboard or any other page
+                    } else {
+                        // If OTP is incorrect, display error
+                        alert('OTP verification failed: ' + data.detail);
+                    }
+                } catch (error) {
+                    // Handle network errors
+                    console.error('Error:', error);
+                    alert('An error occurred while verifying OTP. Please try again.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

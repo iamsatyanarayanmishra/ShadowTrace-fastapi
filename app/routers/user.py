@@ -4,20 +4,30 @@ from sqlalchemy.orm import Session
 from app.schemas import ForgotPasswordRequest, ResetPasswordRequest, UserUpdateSchema, UserLoginSchema, OTPVerifySchema, UserResponse
 from app.models import User
 from app.database import get_db
-from app.services import get_password_hash, generate_otp, send_email, create_access_token
+from app.services import get_password_hash, generate_otp, send_email, create_access_token, verify_password
+from fastapi import Request
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 router = APIRouter(prefix="/user", tags=["User"])
 
-@router.post("/update-profile/", response_model=UserResponse)
+# Set up the templates folder for HTML files
+templates = Jinja2Templates(directory="templates")
+
+# Mount the static folder for CSS, JS, etc.
+router.mount("/static", StaticFiles(directory="static"), name="static")
+
+@router.post("/update-profile/")
 def update_profile(profile_data: UserUpdateSchema, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == profile_data.username).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found") 
     # Update user profile
+    user.username = profile_data.username
     user.name = profile_data.name
     user.email = profile_data.email
     user.mobile = profile_data.mobile
-    user.dob = profile_data.dob
+    # user.dob = profile_data.dob
     user.address = profile_data.address
     user.password = get_password_hash(profile_data.password)
 
@@ -25,20 +35,13 @@ def update_profile(profile_data: UserUpdateSchema, db: Session = Depends(get_db)
     otp = generate_otp(user.email)
     user.otp = otp
     send_email(user.email, otp)
-    user.first_time_login = 0
-
     db.add(user)
-    db.commit()
-    UserResponse = {
-        "username" : profile_data.username,
-        "email_verified" : user.email_verified,
-        "first_time_login" : user.first_time_login
-    }
-    return UserResponse
+    db.commit() 
+    return {"message" : "Profile update successful."}
 
 @router.post("/verify-email/")
-def verify_email(user_name: str, otp_data: OTPVerifySchema, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == user_name).first()
+def verify_email(otp_data: OTPVerifySchema, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == otp_data.username).first()
 
     if not user or user.otp != otp_data.otp:
         raise HTTPException(status_code=400, detail="Invalid OTP or user not found")
@@ -53,21 +56,22 @@ def verify_email(user_name: str, otp_data: OTPVerifySchema, db: Session = Depend
 @router.post("/login/")
 def login(user_data: UserLoginSchema, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == user_data.username).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid username or password")
 
-    if user.username != user_data.username:
-        return {"message": "Invalid Username"} 
+    if not verify_password(user_data.password, user.password):
+        return HTTPException(status_code=400, detail="Invalid Password")
 
     if user.first_time_login == 1:
-        return {"message": "Update your profile"}
+        return {"message": "Update your profile before proceeding"}
 
-    # Generate OTP for two-step verification
     otp = generate_otp(user.email)
     user.otp = otp
     send_email(user.email, otp)
-    access_token = create_access_token(data={"sub": user.username})
-
     db.commit()
-    return {"access_token": access_token, "token_type": "bearer"}
+    # access_token = create_access_token(data={"sub": user.username})
+
+    return {"message" : "Kindly Update Your Profile "}
 
 @router.post("/verify-login/")
 def verify_login(user_name: str, otp_data: OTPVerifySchema, db: Session = Depends(get_db)):

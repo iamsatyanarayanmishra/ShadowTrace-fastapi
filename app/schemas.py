@@ -7,7 +7,7 @@ class UserUpdateSchema(BaseModel):
     name: str
     email: EmailStr
     mobile: Optional[str]
-    dob: Optional[datetime]
+    # dob: Optional[datetime]
     address: Optional[str]
     password: str
 
@@ -20,6 +20,7 @@ class UserLoginSchema(BaseModel):
     password: str
 
 class OTPVerifySchema(BaseModel):
+    username : str
     otp: str
 
 class UserResponse(BaseModel):
