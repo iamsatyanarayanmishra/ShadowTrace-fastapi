@@ -9,24 +9,26 @@ router = APIRouter(prefix="/scan", tags=["Scan"])
 def deep_scan(ip: str):
     if not is_valid_ip(ip):
         raise HTTPException(status_code=400, detail="Invalid IP address")
+    
     nm = nmap.PortScanner()
     start_time = datetime.now()
+    
     try:
-        # nm.scan(ip, arguments='-A -sV -sC -O --script vuln')
-        # nm.scan(ip, arguments='-sS -p- -A --script vuln --min-rate 500 --max-retries 2 --host-timeout 5m')
         nm.scan(ip, arguments='-sS -p- -A --script vuln --min-rate 500 --max-retries 2 --host-timeout 5m -R --dns-servers 8.8.8.8')
         scan_duration = (datetime.now() - start_time).total_seconds()
         scan_data = nm[ip]
         scan_data['scan_duration'] = scan_duration
+        
+        # Format scan data for frontend display
         formatted_results = format_scan_results(scan_data)
         return formatted_results
+    
     except nmap.PortScannerError as e:
         raise HTTPException(status_code=500, detail=f"Nmap scan failed: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
+
     
-
-
 @router.get("/advance_network_scan/")
 def network_scan(ip: str, subnet_mask: str):
     if not is_valid_ip(ip):
@@ -36,7 +38,7 @@ def network_scan(ip: str, subnet_mask: str):
     try:
         subnet_mask = int(subnet_mask)
         if subnet_mask < 0 or subnet_mask > 32:
-            raise ValueError("Subnet mask must be between 0 and 32")
+            raise ValueError("Subnet mask must be between 0 to 32")
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid subnet mask")
 
@@ -84,7 +86,6 @@ def basic_scan(ip: str):
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
     
 
-
 @router.get("/basic_network_scan/")
 def basic_network_scan(ip: str, subnet_mask: str):
     if not is_valid_ip(ip):
@@ -105,7 +106,6 @@ def basic_network_scan(ip: str, subnet_mask: str):
         # Perform a basic scan on all hosts in the network
         nm.scan(hosts=cidr, arguments='-sT')
         scan_duration = (datetime.now() - start_time).total_seconds()
-        
         scan_data = {host: nm[host] for host in nm.all_hosts()}
         for host in scan_data.values():
             host['scan_duration'] = scan_duration

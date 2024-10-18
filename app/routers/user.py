@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from app.schemas import ForgotPasswordRequest, ResetPasswordRequest, UserUpdateSchema, UserLoginSchema, OTPVerifySchema, UserResponse
-from app.models import User
+from app.schemas import ForgotPasswordRequest, ResetPasswordRequest, UserUpdateSchema, UserLoginSchema, OTPVerifySchema, UserResponse, isSubscribedSchema
+from app.models import User, Company
 from app.database import get_db
 from app.services import get_password_hash, generate_otp, send_email, create_access_token, verify_password
 from fastapi import Request
@@ -60,7 +60,7 @@ def login(user_data: UserLoginSchema, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid username or password")
 
     if not verify_password(user_data.password, user.password):
-        return HTTPException(status_code=400, detail="Invalid Password")
+        raise HTTPException(status_code=400, detail="Invalid Password")
 
     if user.first_time_login == 1:
         return {"message": "Update your profile before proceeding"}
@@ -86,6 +86,29 @@ def verify_login(user_name: str, otp_data: OTPVerifySchema, db: Session = Depend
     db.commit()
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.post("/verify-subscription/")
+def verify_subscription(Subscription_Data: isSubscribedSchema, db: Session = Depends(get_db)):
+    # Fetch the user by username
+    user = db.query(User).filter(User.username == Subscription_Data.username).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Fetch the company the user is associated with
+    company = db.query(Company).filter(Company.id == user.company_id).first()
+
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found")
+    
+    if Subscription_Data.subscribtionModel == "OSINT":
+        is_osint_subscribed = company.is_osint_subscribed
+        return {"is_osint_subscribed": is_osint_subscribed}
+    
+    if Subscription_Data.subscribtionModel == "E-Discovery":
+        is_ediscovery_subscribed = company.is_eDiscovery_subscribed
+        return {"is_ediscovery_subscribed": is_ediscovery_subscribed}
 
 
 @router.post("/forgot-password/")
@@ -123,5 +146,3 @@ def reset_password(request: ResetPasswordRequest, db: Session = Depends(get_db))
     db.commit()
 
     return {"message": "Password has been reset successfully"}
-
-    

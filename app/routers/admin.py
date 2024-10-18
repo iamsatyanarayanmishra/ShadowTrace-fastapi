@@ -1,6 +1,7 @@
 import random
 import string
-from fastapi import APIRouter, Depends, HTTPException, status
+from typing import List
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.models import Company, User
 from app.database import get_db
@@ -20,13 +21,17 @@ def generate_user_id():
 def create_user(profile_data: UserCreationSchema, db: Session = Depends(get_db)):
     username = generate_user_id()
     password = generate_random_password()
+    is_osint_subscribed = profile_data.is_osint_subscribed
+    is_eDiscovery_subscribed = profile_data.is_eDiscovery_subscribed
     hashed_password = get_password_hash(password)
 
     company = db.query(Company).filter(Company.company_name == profile_data.company_name).first()
     if not company:
         new_company = Company(
             company_name=profile_data.company_name,
-            company_address=profile_data.company_address
+            company_address=profile_data.company_address,
+            is_osint_subscribed = is_osint_subscribed,
+            is_eDiscovery_subscribed = is_eDiscovery_subscribed
         )
         db.add(new_company)
         db.flush()  # Ensure the new company is created before assigning it to the user
@@ -40,7 +45,7 @@ def create_user(profile_data: UserCreationSchema, db: Session = Depends(get_db))
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-
+    print("Your username : %s and password: %s" % (username, password))
     return {"username": username, "password": password}
 
 def generate_random_password(length=8):

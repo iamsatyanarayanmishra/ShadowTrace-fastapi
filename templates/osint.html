@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHADOWTRACE - Options</title>
-    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
+    <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap">
     <style>
         body {
@@ -77,13 +77,13 @@
 <body>
     <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
         <a href="index.html">
-            <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 70px;">
+            <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 70px;">
         </a>
     </div>
     
     <div class="background-video">
         <video id="background-video" autoplay muted loop>
-            <source src="./Video/Y2meta.app-Globalization World Map Animation HD Blue-(1080p).mp4" type="video/mp4">
+            <source src="/static/Video/Y2meta.app-Globalization World Map Animation HD Blue-(1080p).mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="video-overlay"></div>
@@ -120,5 +120,47 @@
             // Add additional functionality here as needed
         }
     </script>
+
+    <script>
+                // Function to handle the button click event
+                function handleOption(option) {
+                // Prepare the data to send
+                const data = {
+                    username: localStorage.getItem('username') || "",  // Get the username if available, else empty
+                    subscribtionModel: option
+                };
+
+                // Send the data to the backend using a POST request
+                fetch('http://localhost:8000/user/verify-subscription/', {  // Corrected endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)  // Convert the data to JSON
+                })
+                .then(response => response.json())  // Parse the JSON response
+                .then(data => {
+                    // Check if OSINT or E-Discovery subscription exists in the response
+                    if (option === "OSINT" && data.is_osint_subscribed) {
+                        // If the company is subscribed to OSINT, redirect to the OSINT page
+                        window.location.href = 'osint.html';  
+                    } else if (option === "OSINT" && (!data.is_osint_subscribed)) {
+                        // If the company is subscribed to E-Discovery, redirect to the E-Discovery page
+                        window.location.href = 'osint-not-subs.html';
+                    } else if (option === "E-Discovery" && data.is_ediscovery_subscribed) {
+                        // If the company is subscribed to E-Discovery, redirect to the E-Discovery page
+                        window.location.href = 'e-discovery-main.html';
+                    } else if (option === "E-Discovery" && (!data.is_ediscovery_subscribed)) {
+                        // If the company is subscribed to E-Discovery, redirect to the E-Discovery page
+                        window.location.href = 'e-disc-not-subs.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while submitting your option.');
+                });
+            }
+
+     </script>
 </body>
 </html>

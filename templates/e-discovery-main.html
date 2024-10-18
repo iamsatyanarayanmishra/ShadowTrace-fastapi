@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShadowTrace</title>
-    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/call.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/call.css" rel="stylesheet">
     <style>
         /* Centering the main content */
       
@@ -142,7 +142,7 @@
 <body>
     <div class="background-video">
         <video autoplay muted loop>
-            <source src="./Video/Video2.mp4" type="video/mp4">
+            <source src="/static/Video/Video2.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div> <!-- Dark overlay -->
     </div>
@@ -152,17 +152,17 @@
         <div class="sidebar">
             <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
                 <a href="index.html">
-                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                    <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
                 </a>
             </div>
 
             <div class="profile" style="margin-top: 70px;">
                 <div class="profile-picture">
-                    <img src="./photos/Saty.png" alt="Profile Picture">
+                    <img src="/static/photos/Saty.png" alt="Profile Picture">
                 </div>
                 <!-- <h3 style="text-align: left;"><b>PROFILE</b></h3> -->
-                <p style="text-align: left;">Name: Satyajit_p_Sambit</p>
-                <p style="text-align: left;">Mob No: 123-456-7890</p>
+                <p id="name" style="text-align: left;">Name: Loading...</p>
+                <p id="mobile" style="text-align: left;">Mob No: Loading...</p>
                 <p style="text-align: left;">UId: 123456789012345</p>
                 
             </div>
@@ -234,6 +234,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
+        // Toggle navigation tree view
         function toggleNavTreeview(id) {
             const treeview = document.getElementById(id);
             if (treeview.style.display === 'block') {
@@ -244,63 +245,69 @@
                 treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
             }
         }
-        function searchIPAddress() {
+
+        // Initiate IP address search and scan
+        async function searchIPAddress() {
             const ipAddress = document.getElementById('ip-address-input').value;
             if (ipAddress) {
                 console.log("Searching for IP address: " + ipAddress);
-                startScan(ipAddress);
+                await startScan(ipAddress); // Call scan function
             } else {
                 alert("Please enter a valid URL.");
             }
         }
-
-        // Simulate the web scanning process in the terminal
-        function startScan(ipAddress) {
+    
+        // Call the backend API to start the scan
+        async function startScan(ipAddress) {
             const terminal = document.getElementById('terminal');
             terminal.innerHTML = ''; // Clear terminal
-            const lines = [
-                `Initiating web scan for: ${ipAddress}`,
-                `Connecting to ${ipAddress}...`,
-                'Scanning ports...',
-                'Open ports: 80 (HTTP), 443 (HTTPS)',
-                'Checking for vulnerabilities...',
-                'No critical vulnerabilities found.',
-                'Scan complete.'
-            ];
-
-            let lineIndex = 0;
-            const interval = setInterval(() => {
-                const newLine = document.createElement('span');
-                newLine.classList.add('line');
-                newLine.textContent = lines[lineIndex];
-                terminal.appendChild(newLine);
-                terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
-                lineIndex++;
-
-                if (lineIndex === lines.length) {
-                    clearInterval(interval);
-                    document.getElementById('download-btn').style.display = 'block'; // Show download button after scan
+    
+            try {
+                const response = await fetch('http://localhost:8000/scan/advance_ip_scan/', { // Update with your backend endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ip_address: ipAddress }) // Send IP address in request body
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to initiate scan.');
                 }
-            }, 1000); // Add delay between lines to simulate a real scan
+    
+                const scanData = await response.json(); // Get response from the server
+                displayScanResult(scanData, ipAddress); // Display results in terminal
+            } catch (error) {
+                console.error("Error:", error);
+                alert('Error initiating scan. Please check the console for more details.');
+            }
         }
-
+    
+        // Display scan results in the terminal
+        function displayScanResult(scanData, ipAddress) {
+            const terminal = document.getElementById('terminal');
+    
+            terminal.innerHTML += `<span>Scan initiated for: ${ipAddress}</span><br>`;
+            terminal.innerHTML += `<span>Open Ports: ${scanData.open_ports.join(', ')}</span><br>`;
+            terminal.innerHTML += `<span>Vulnerabilities: ${scanData.vulnerabilities.join(', ')}</span><br>`;
+            terminal.innerHTML += `<span>Status: ${scanData.status}</span><br>`;
+    
+            document.getElementById('download-btn').style.display = 'block'; // Show download button
+        }
+    
+        // Generate and download PDF report
         function downloadReport() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
             const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
+            const terminalText = document.getElementById('terminal').textContent;
 
             // Report content
             const reportContent = [
                 `Web Scan Report for: ${ipAddress}`,
                 '------------------------',
-                'Ports scanned:',
-                '- 80 (HTTP)',
-                '- 443 (HTTPS)',
-                'Vulnerabilities found:',
-                '- No critical vulnerabilities.',
-                '------------------------',
-                'Scan complete.'
+                terminalText
             ];
 
             // Add text to the PDF
@@ -313,75 +320,6 @@
             // Save the generated PDF
             doc.save(`scan_report_${ipAddress}.pdf`);
         }
-        function searchIPAddress() {
-            const ipAddress = document.getElementById('ip-address-input').value;
-            if (ipAddress) {
-                console.log("Searching for IP address: " + ipAddress);
-                startScan(ipAddress);
-            } else {
-                alert("Please enter a valid URL.");
-            }
-        }
-
-        // Simulate the web scanning process in the terminal
-        function startScan(ipAddress) {
-            const terminal = document.getElementById('terminal');
-            terminal.innerHTML = ''; // Clear terminal
-            const lines = [
-                `Initiating web scan for: ${ipAddress}`,
-                `Connecting to ${ipAddress}...`,
-                'Scanning ports...',
-                'Open ports: 80 (HTTP), 443 (HTTPS)',
-                'Checking for vulnerabilities...',
-                'No critical vulnerabilities found.',
-                'Scan complete.'
-            ];
-
-            let lineIndex = 0;
-            const interval = setInterval(() => {
-                const newLine = document.createElement('span');
-                newLine.classList.add('line');
-                newLine.textContent = lines[lineIndex];
-                terminal.appendChild(newLine);
-                terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
-                lineIndex++;
-
-                if (lineIndex === lines.length) {
-                    clearInterval(interval);
-                    document.getElementById('download-btn').style.display = 'block'; // Show download button after scan
-                }
-            }, 1000); // Add delay between lines to simulate a real scan
-        }
-
-        function downloadReport() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
-
-            // Report content
-            const reportContent = [
-                `Web Scan Report for: ${ipAddress}`,
-                '------------------------',
-                'Ports scanned:',
-                '- 80 (HTTP)',
-                '- 443 (HTTPS)',
-                'Vulnerabilities found:',
-                '- No critical vulnerabilities.',
-                '------------------------',
-                'Scan complete.'
-            ];
-
-            // Add text to the PDF
-            let y = 10; // Starting Y position
-            reportContent.forEach(line => {
-                doc.text(line, 10, y);
-                y += 10; // Move to next line
-            });
-
-            // Save the generated PDF
-            doc.save(`scan_report_${ipAddress}.pdf`);
-        }
-    </script>
+    </script>    
 </body>
 </html>

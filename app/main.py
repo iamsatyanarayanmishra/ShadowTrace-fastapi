@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # Import CORS Middleware
 from app.routers import admin, user, scan
 from app.database import engine, Base
-from app.models import User, Admin
+from app.models import User, Admin, Company
 
 app = FastAPI()
 

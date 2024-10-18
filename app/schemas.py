@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 
 class UserUpdateSchema(BaseModel):
@@ -14,6 +14,8 @@ class UserUpdateSchema(BaseModel):
 class UserCreationSchema(BaseModel):
     company_name : str
     company_address : str
+    is_osint_subscribed : bool
+    is_eDiscovery_subscribed : bool
 
 class UserLoginSchema(BaseModel):
     username: str
@@ -33,7 +35,11 @@ class UserResponse(BaseModel):
 
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
-
+    
 class ResetPasswordRequest(BaseModel):
     otp: str
     new_password: str
+
+class isSubscribedSchema(BaseModel):
+    username: str
+    subscribtionModel: str

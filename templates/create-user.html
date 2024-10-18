@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Subscription Form - Kristellar Aerospace</title>
-    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -154,7 +154,7 @@
         <div class="sidebar">
             <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
                 <a href="index.html">
-                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                    <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
                 </a>
             </div>
 
@@ -200,27 +200,60 @@
     </div>
 
     <script>
+        // Get the form and error message elements
         const form = document.getElementById('subscription-form');
         const errorMessage = document.getElementById('form-error');
 
         // Event listener for form submission
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Gather form data
             const companyName = document.getElementById('company-name').value;
             const companyAddress = document.getElementById('company-address').value;
-            const osint = document.getElementById('osint').checked;
-            const ediscovery = document.getElementById('ediscovery').checked;
+            const isOsintSubscribed = document.getElementById('osint').checked; // true or false
+            const isEDiscoverySubscribed = document.getElementById('ediscovery').checked; // true or false
 
             // Basic form validation
-            if (!companyName || !companyAddress || (!osint && !ediscovery)) {
-                errorMessage.textContent = "Please fill all fields and select at least one subscription.";
+            if (!companyName || !companyAddress) {
+                errorMessage.textContent = "Please fill all fields.";
                 errorMessage.style.display = "block";
+                return; // Exit the function if validation fails
             } else {
-                errorMessage.style.display = "none";
-                alert(`Subscription for ${companyName} submitted successfully.`);
-                // Further form submission logic (e.g., sending data to a server) goes here
+                errorMessage.style.display = "none"; // Hide error message if validation passes
+            }
+
+            // Create an object representing the user data to be sent
+            const userData = {
+                company_name: companyName,
+                company_address: companyAddress,
+                is_osint_subscribed: isOsintSubscribed,
+                is_eDiscovery_subscribed: isEDiscoverySubscribed
+            };
+            
+            try {
+                // Send the user data to the FastAPI endpoint using fetch
+                const response = await fetch('http://localhost:8000/admin/create-user/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // Indicate that we are sending JSON
+                    },
+                    body: JSON.stringify(userData) // Convert user data object to JSON string
+                });
+
+                if (response.ok) {
+                    const data = await response.json(); // Parse the JSON response
+                    alert(`Subscription for ${companyName} submitted successfully. Generated Username: ${data.username}, Password: ${data.password}`);
+                } else {
+                    // Handle errors returned from the backend
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.detail}`);
+                }
+            } catch (error) {
+                alert(`An error occurred: ${error.message}`);
             }
         });
-    </script>
+
+    </script>    
 </body>
 </html>

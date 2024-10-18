@@ -7,8 +7,8 @@ class Admin(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(50), unique=True, index=True)
+    company_id = Column(Integer, ForeignKey('company.id'))
     password = Column(String(100))
-    company_id = Column(Integer, ForeignKey('company.id'))  # ForeignKey corrected
 
     # Relationship to Company (bidirectional)
     company = relationship("Company", back_populates="admins")
@@ -43,6 +43,8 @@ class Company(Base):
     id = Column(Integer, primary_key=True, index=True)
     company_name = Column(String(100), unique=True, nullable=False)
     company_address = Column(String(100), unique=True, nullable=False)
+    is_osint_subscribed = Column(Boolean, default=False)
+    is_eDiscovery_subscribed = Column(Boolean, default=False)
 
     # Relationships to Admins and Users
     admins = relationship("Admin", back_populates="company", cascade="all, delete-orphan")

@@ -69,6 +69,7 @@
             if (response.ok) {
                 // Store data in local storage
                 // localStorage.setItem('key', data.access_token);
+                localStorage.setItem('username', data.username);
                 if (data.message === "Update your profile before proceeding") {
                     alert("Please update your profile!");
                     // Redirect to update profile page or any other action

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShadowTrace - IP Scanning</title>
-    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/call.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/call.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -54,7 +55,8 @@
             background-color: rgba(255, 252, 252, 0.2);
         }
 
-        .search-btn, .submit-btn {
+        .search-btn,
+        .submit-btn {
             background-color: #e9f0ea;
             color: rgb(0, 0, 0);
             padding: 10px 20px;
@@ -69,7 +71,8 @@
             font-size: 18px;
         }
 
-        .search-btn:hover, .submit-btn:hover {
+        .search-btn:hover,
+        .submit-btn:hover {
             background-color: #00ff00;
         }
 
@@ -175,10 +178,11 @@
         }
     </style>
 </head>
+
 <body>
     <div class="background-video">
         <video autoplay muted loop>
-            <source src="./Video/Video2.mp4" type="video/mp4">
+            <source src="/static/Video/Video2.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -187,13 +191,13 @@
         <div class="sidebar">
             <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
                 <a href="index.html">
-                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                    <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
                 </a>
             </div>
 
             <div class="profile">
                 <div class="profile-picture">
-                    <img src="./photos/Saty.png" alt="Profile Picture">
+                    <img src="/static/photos/Saty.png" alt="Profile Picture">
                 </div>
                 <p>Name: Satyajit_p_Sambit</p>
                 <p>Mob No: 123-456-7890</p>
@@ -203,12 +207,12 @@
             <div class="nav-section">
                 <div class="nav-heading" onclick="toggleNavTreeview('social-media-treeview')">
                     <i class="fa fa-bullseye"></i>
-<span>Scanning</span>
+                    <span>Scanning</span>
 
                     <i class="fa fa-angle-right right"></i>
                 </div>
                 <div class="nav-treeview" id="social-media-treeview" style="margin-top: 20px;">
-              <ul>
+                    <ul>
                         <li><a href="Ip.html"><i class="fa fa-network-wired"></i>IP Scanning</a></li>
                         <li><a href="web.html"><i class="fa fa-search"></i>Web Scanning</a></li>
                         <li><a href="app-scan.html"><i class="fa fa-mobile-alt"></i>App Scanning</a></li>
@@ -218,7 +222,7 @@
                 </div>
             </div>
 
-       
+
         </div>
 
         <div class="main-content" style="margin-left: 350px;margin-top: 150px;">
@@ -241,14 +245,27 @@
     <!-- Include jsPDF from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        function scanIP() {
+        async function scanIP() {
             const ipInput = document.getElementById("ip-input").value;
             const terminal = document.getElementById("terminal");
+
             terminal.innerHTML += `<span class="line">Scanning IP: ${ipInput}...</span><br>`;
-            setTimeout(() => {
-                terminal.innerHTML += `<span class="line">Scan complete. IP Address ${ipInput} has no vulnerabilities.</span><br>`;
+
+            try {
+                const response = await fetch(`http://localhost:8000/scan/advance_ip_scan/?ip=${ipInput}`);
+                if (!response.ok) {
+                    throw new Error(`Scan failed: ${response.statusText}`);
+                }
+                const data = await response.json();
+
+                // Display scan results in the terminal
+                terminal.innerHTML += `<span class="line">Scan complete for IP Address: ${ipInput}.</span><br>`;
+                terminal.innerHTML += `<span class="line">${JSON.stringify(data, null, 2)}</span><br>`;
+
                 document.getElementById('download-btn').style.display = 'block';
-            }, 2000);
+            } catch (error) {
+                terminal.innerHTML += `<span class="line error">Error: ${error.message}</span><br>`;
+            }
         }
 
         function downloadReport() {
@@ -274,4 +291,5 @@
         }
     </script>
 </body>
+
 </html>
