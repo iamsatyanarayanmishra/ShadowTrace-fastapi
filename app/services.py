@@ -49,7 +49,7 @@ def generate_otp(email: str, db: Session = Depends(get_db)):
 def send_email(email: str, otp: str):
     # Email configuration
     sender_email = "iamsatyanarayanmishra@gmail.com"  # Replace with your email
-    sender_password = "meil pcfa plsc sdjd"    # Use your Google account password or App Password
+    sender_password = "lqaj wnln sqfo wihx"    # Use your Google account password or App Password
     subject = "Your OTP Code"
     body = f"Your OTP code is: {otp}"
 
@@ -72,34 +72,6 @@ def send_email(email: str, otp: str):
     except Exception as e:
         print(f"Failed to send email: {e}")
         raise HTTPException(status_code=500, detail="Email sending failed")
-    
-# Function to send username and password
-# def send_username_password(email: str, username: str, password: str):
-#     # Email configuration
-#     sender_email = "iamsatyanarayanmishra@gmail.com"  # Replace with your email
-#     sender_password = "meil pcfa plsc sdjd"    # Use your Google account password or App Password
-#     subject = "Your OTP Code"
-#     body = f"Your username and password is: {username, password}"
-
-#     # Create the email
-#     msg = MIMEMultipart()
-#     msg['From'] = sender_email
-#     msg['To'] = email
-#     msg['Subject'] = subject
-#     msg.attach(MIMEText(body, 'plain'))
-
-#     try:
-#         # Connect to the SMTP server
-#         with smtplib.SMTP('smtp.gmail.com', 587) as server:  # Use Gmail's SMTP server
-#             server.starttls()  # Upgrade the connection to secure
-#             server.login(sender_email, sender_password)  # Login to your email account
-#             server.send_message(msg)  # Send the email
-
-#         print(f"Sending username and password {username, password} to email {email}")
-
-#     except Exception as e:
-#         print(f"Failed to send email: {e}")
-#         raise HTTPException(status_code=500, detail="Email sending failed")
     
 
 logging.basicConfig(level=logging.INFO)
