@@ -9,13 +9,6 @@ from app.services import get_password_hash
 from app.schemas import UserCreationSchema
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
-def generate_user_id():
-    prefix = "S"
-    middle_letter = "T"
-    first_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=2))
-    second_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=2))    
-    user_id = f"{prefix}{first_part}{middle_letter}{second_part}"
-    return user_id
 
 @router.post("/create-user/")
 def create_user(profile_data: UserCreationSchema, db: Session = Depends(get_db)):
@@ -47,6 +40,18 @@ def create_user(profile_data: UserCreationSchema, db: Session = Depends(get_db))
     db.refresh(new_user)
     print("Your username : %s and password: %s" % (username, password))
     return {"username": username, "password": password}
+
+
+
+def generate_user_id():
+    prefix = "S"
+    middle_letter = "T"
+    first_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=2))
+    second_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=2))    
+    user_id = f"{prefix}{first_part}{middle_letter}{second_part}"
+    return user_id
+
+
 
 def generate_random_password(length=8):
     """Generates a random password."""

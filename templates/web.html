@@ -225,11 +225,12 @@
 
             <div class="profile">
                 <div class="profile-picture">
-                    <img src="/static/photos/Saty.png" alt="Profile Picture">
+                    <img id="profile_image" src="" alt="Profile Picture">
                 </div>
-                <p>Name: Satyajit_p_Sambit</p>
-                <p>Mob No: 123-456-7890</p>
-                <p>UId: 123456789012345</p>
+                <!-- <h3 style="text-align: left;"><b>PROFILE</b></h3> -->
+                <p id="uid" style="text-align: left;">UId: Loading...</p>
+                <p id="name" style="text-align: left;">Name: Loading...</p>
+                <p id="mobile" style="text-align: left;">Mob No: Loading...</p>
             </div>
 
             <div class="nav-section">
@@ -274,7 +275,43 @@
         
     <!-- Include jsPDF from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+    <script>
+        async function fetchUserProfile() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                console.log("Access Token:", access_token); // Log the token for debugging
+    
+                const response = await fetch("http://localhost:8000/user/me", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${access_token}`,
+                        "Content-Type": "application/json"
+                    }
+                });
+    
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user profile. Status: " + response.status);
+                }
+    
+                const userData = await response.json();
+                document.getElementById("name").textContent = `Name: ${userData.name}`;
+                document.getElementById("mobile").textContent = `Mob No: ${userData.mobile}`;
+                document.getElementById("uid").textContent = `UID: ${userData.username}`;
+                // Set profile image
+                let imagePath = userData.image_path;
+                if (!imagePath.startsWith('/')) {
+                    imagePath = '/' + imagePath;  // Add the leading '/' if it's not there
+                }
+                document.getElementById("profile_image").src = imagePath;
+            } catch (error) {
+                console.error("Error fetching user profile:", error);
+                alert("Error fetching user profile: " + error.message);
+            }
+        }
+    
+        // Call fetchUserProfile when the page loads
+        window.onload = fetchUserProfile;
+    </script>
     <script>
         function toggleNavTreeview(id) {
             const treeview = document.getElementById(id);

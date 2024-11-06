@@ -15,15 +15,17 @@ class Admin(Base):
     # Relationship to track users created by this admin
     created_users = relationship("User", back_populates="created_by_admin")
 
+from sqlalchemy import Column, String
+
 class User(Base):
     __tablename__ = "users"
-
+    
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String(50), unique=True, nullable=False, index=True)  # made non-nullable
-    company_id = Column(Integer, ForeignKey('company.id'))  # ForeignKey corrected
-    password = Column(String(100))
+    username = Column(String(50), unique=True, nullable=False, index=True)
+    company_id = Column(Integer, ForeignKey('company.id'))
+    password = Column(String(100), nullable=False)
     name = Column(String(100), nullable=True)
-    email = Column(String(100), unique=True, nullable=True)  # made non-nullable
+    email = Column(String(100), unique=True, nullable=True)
     mobile = Column(String(20), nullable=True)
     dob = Column(DateTime, nullable=True)
     address = Column(String(255), nullable=True)
@@ -31,9 +33,9 @@ class User(Base):
     first_time_login = Column(Boolean, default=True)
     otp = Column(String(6), nullable=True)
     otp_expiration = Column(DateTime, nullable=True)
-    admin_id = Column(Integer, ForeignKey('admins.id'))  # ForeignKey added
+    admin_id = Column(Integer, ForeignKey('admins.id'), nullable=True)
+    image_path = Column(String(255), nullable=True)  # New field for profile image path
 
-    # Relationships
     company = relationship("Company", back_populates="users")
     created_by_admin = relationship("Admin", back_populates="created_users")
 
@@ -41,7 +43,7 @@ class Company(Base):
     __tablename__ = "company"
 
     id = Column(Integer, primary_key=True, index=True)
-    company_name = Column(String(100), unique=True, nullable=False)
+    company_name = Column(String(100), unique=True,   nullable=False)
     company_address = Column(String(100), unique=True, nullable=False)
     is_osint_subscribed = Column(Boolean, default=False)
     is_eDiscovery_subscribed = Column(Boolean, default=False)

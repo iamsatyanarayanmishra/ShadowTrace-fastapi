@@ -126,15 +126,16 @@
                 function handleOption(option) {
                 // Prepare the data to send
                 const data = {
-                    username: localStorage.getItem('username') || "",  // Get the username if available, else empty
                     subscribtionModel: option
                 };
-
+                const access_token = localStorage.getItem('access_token')
+                
                 // Send the data to the backend using a POST request
                 fetch('http://localhost:8000/user/verify-subscription/', {  // Corrected endpoint
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${access_token}`,
                     },
                     body: JSON.stringify(data)  // Convert the data to JSON
                 })

@@ -68,7 +68,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const verificationBoxes = document.querySelectorAll('.verification-box');
             const form = document.getElementById('otp-form');
-            const username = localStorage.getItem('username')
+            const access_token = localStorage.getItem('access_token')
 
             // Focus logic for moving between OTP input boxes
             verificationBoxes.forEach((box, index) => {
@@ -102,7 +102,6 @@
 
                 // Prepare the OTP data
                 const otpData = {
-                    username : username,
                     otp: otp
                 };
 
@@ -112,6 +111,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${access_token}`,
                         },
                         body: JSON.stringify(otpData),
                     });

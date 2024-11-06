@@ -53,7 +53,7 @@
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-
+    
             const response = await fetch('http://localhost:8000/user/login/', {
                 method: 'POST',
                 headers: {
@@ -64,25 +64,26 @@
                     password: password,
                 }),
             });
-
+    
             const data = await response.json();
+            
             if (response.ok) {
-                // Store data in local storage
-                // localStorage.setItem('key', data.access_token);
-                localStorage.setItem('username', data.username);
                 if (data.message === "Update your profile before proceeding") {
                     alert("Please update your profile!");
+                    localStorage.setItem('access_token', data.access_token);
                     // Redirect to update profile page or any other action
                     window.location.href = 'profile-update.html';  // Adjust the path as necessary
-                } else {
-                    alert("Login successful! Please check your email for OTP.");
-                    // Handle OTP input or redirection
-                    window.location.href = 'auth.html'
+                } else if (data.message === "Verified User") {
+                    // Store token in local storage for future requests
+                    localStorage.setItem('access_token', data.access_token);
+                    alert("Login successful! Redirecting to dashboard.");
+                    // Redirect to the dashboard or home page
+                    window.location.href = 'auth.html';  // Adjust the path as necessary
                 }
             } else {
                 alert("Login failed: " + data.detail);
             }
         });
-    </script>
+    </script>    
 </body>
 </html>

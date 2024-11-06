@@ -1,10 +1,13 @@
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+import shutil
+from typing import Optional
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Response, UploadFile, status
+from pydantic import EmailStr
 from sqlalchemy.orm import Session
-from app.schemas import ForgotPasswordRequest, ResetPasswordRequest, UserUpdateSchema, UserLoginSchema, OTPVerifySchema, UserResponse, isSubscribedSchema
+from app.schemas import ForgotPasswordRequest, ResetPasswordRequest, UserSchema, UserLoginSchema, OTPVerifySchema, isSubscribedSchema
 from app.models import User, Company
 from app.database import get_db
-from app.services import get_password_hash, generate_otp, send_email, create_access_token, verify_password
+from app.services import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY, get_current_user, get_password_hash, generate_otp, send_email, create_access_token, verify_password
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -17,31 +20,78 @@ templates = Jinja2Templates(directory="templates")
 # Mount the static folder for CSS, JS, etc.
 router.mount("/static", StaticFiles(directory="static"), name="static")
 
-@router.post("/update-profile/")
-def update_profile(profile_data: UserUpdateSchema, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == profile_data.username).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found") 
-    # Update user profile
-    user.username = profile_data.username
-    user.name = profile_data.name
-    user.email = profile_data.email
-    user.mobile = profile_data.mobile
-    # user.dob = profile_data.dob
-    user.address = profile_data.address
-    user.password = get_password_hash(profile_data.password)
 
-    # Generate otp for email verification
+
+@router.post("/login/")
+def login(user_data: UserLoginSchema, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == user_data.username).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid username or password")
+
+    if not verify_password(user_data.password, user.password):
+        raise HTTPException(status_code=400, detail="Invalid Credentials")
+    
+    access_token = create_access_token(data={"sub": user.username})
+
+    if user.first_time_login:
+        return {"access_token": access_token,"message": "Update your profile before proceeding"}
+    
+
     otp = generate_otp(user.email)
     user.otp = otp
     send_email(user.email, otp)
+    db.commit()
+    return {"access_token": access_token , "message": "Verified User"}
+
+@router.post("/update-profile/")
+async def update_profile(
+    name: str = Form(...),
+    email: str = Form(...),
+    mobile: str = Form(None),
+    address: str = Form(None),
+    password: str = Form(None),
+    profile_image: UploadFile = File(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    user = current_user
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if db.query(User).filter(User.email == email, User.id != user.id).first():
+        raise HTTPException(status_code=400, detail="Email already in use")
+
+    # Update user profile fields
+    user.name = name
+    user.email = email
+    user.mobile = mobile
+    user.address = address
+    if password:
+        user.password = get_password_hash(password)
+
+    # Handle profile image upload
+    if profile_image:
+        # Define the path where the image will be stored
+        image_path = f"static/photos/{user.id}_{profile_image.filename}"
+        with open(image_path, "wb") as buffer:
+            shutil.copyfileobj(profile_image.file, buffer)
+        user.image_path = image_path # Save the image path in the database
+
+    # Generate OTP for email verification
+    otp = generate_otp(user.email)
+    user.otp = otp
+    send_email(user.email, otp)
+
     db.add(user)
-    db.commit() 
-    return {"message" : "Profile update successful."}
+    db.commit()
+
+    return {"message": "Profile update successful."}
+
+
+
 
 @router.post("/verify-email/")
-def verify_email(otp_data: OTPVerifySchema, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == otp_data.username).first()
+def verify_email(otp_data: OTPVerifySchema, db: Session = Depends(get_db), user: User= Depends(get_current_user)):
 
     if not user or user.otp != otp_data.otp:
         raise HTTPException(status_code=400, detail="Invalid OTP or user not found")
@@ -53,25 +103,6 @@ def verify_email(otp_data: OTPVerifySchema, db: Session = Depends(get_db)):
 
     return {"message": "Email verified successfully"}
 
-@router.post("/login/")
-def login(user_data: UserLoginSchema, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == user_data.username).first()
-    if not user:
-        raise HTTPException(status_code=400, detail="Invalid username or password")
-
-    if not verify_password(user_data.password, user.password):
-        raise HTTPException(status_code=400, detail="Invalid Password")
-
-    if user.first_time_login == 1:
-        return {"message": "Update your profile before proceeding"}
-
-    otp = generate_otp(user.email)
-    user.otp = otp
-    send_email(user.email, otp)
-    db.commit()
-    # access_token = create_access_token(data={"sub": user.username})
-
-    return {"message" : "Kindly Update Your Profile "}
 
 @router.post("/verify-login/")
 def verify_login(user_name: str, otp_data: OTPVerifySchema, db: Session = Depends(get_db)):
@@ -88,10 +119,16 @@ def verify_login(user_name: str, otp_data: OTPVerifySchema, db: Session = Depend
     return {"access_token": access_token, "token_type": "bearer"}
 
 
+
+@router.get("/me", response_model=UserSchema)
+def read_current_user(current_user: User = Depends(get_current_user)):
+    return current_user  # Assuming `current_user.image_path` is populated
+
+
 @router.post("/verify-subscription/")
-def verify_subscription(Subscription_Data: isSubscribedSchema, db: Session = Depends(get_db)):
+def verify_subscription(Subscription_Data: isSubscribedSchema, db: Session = Depends(get_db), user: User= Depends(get_current_user)):
     # Fetch the user by username
-    user = db.query(User).filter(User.username == Subscription_Data.username).first()
+    # user = db.query(User).filter(User.username == Subscription_Data.username).first()
 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -146,3 +183,5 @@ def reset_password(request: ResetPasswordRequest, db: Session = Depends(get_db))
     db.commit()
 
     return {"message": "Password has been reset successfully"}
+
+

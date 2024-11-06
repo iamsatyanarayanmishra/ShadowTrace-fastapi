@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,32 +14,37 @@
     <link href="/static/css/call.css" rel="stylesheet">
     <style>
         /* Centering the main content */
-      
-           
-        
-    .main-content {
-        margin-left: 250px; /* Ensure the main content starts after the sidebar */
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    .info-section {
-        margin-top: 20px;
-        background: rgba(255, 255, 255, 0.1); /* Smokey transparent background */
-        backdrop-filter: blur(10px);
-        border-radius: 10px;
-        padding: 20px;
-        display: inline-block; /* Center the container */
-    }
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 
-.search-container {
-            background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+
+        .main-content {
+            margin-left: 250px;
+            /* Ensure the main content starts after the sidebar */
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .info-section {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            /* Smokey transparent background */
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            /* Center the container */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        .search-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Transparent background */
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -53,11 +59,14 @@
             border: none;
             outline: none;
             font-size: 16px;
-            color: white; /* Change input text color to white */
-            background-color: rgba(255, 252, 252, 0.2); /* Slight transparency for input background */
+            color: white;
+            /* Change input text color to white */
+            background-color: rgba(255, 252, 252, 0.2);
+            /* Slight transparency for input background */
         }
 
-        .search-btn, .submit-btn {
+        .search-btn,
+        .submit-btn {
             background-color: #e9f0ea;
             color: rgb(0, 0, 0);
             padding: 10px 20px;
@@ -69,10 +78,12 @@
         }
 
         .search-btn i {
-            font-size: 18px; /* Size of search icon */
+            font-size: 18px;
+            /* Size of search icon */
         }
 
-        .search-btn:hover, .submit-btn:hover {
+        .search-btn:hover,
+        .submit-btn:hover {
             background-color: #00ff00;
         }
 
@@ -82,7 +93,8 @@
 
         /* Terminal Styling */
         .terminal {
-            background-color: rgba(11, 7, 7, 0.7); /* 50% transparency */
+            background-color: rgba(11, 7, 7, 0.7);
+            /* 50% transparency */
             color: #00ff00;
             padding: 20px;
             border-radius: 10px;
@@ -98,25 +110,26 @@
         .terminal .line {
             display: block;
         }
-    #subscription-prompt {
-        margin-top: 20px;
-        padding: 20px;
-        border: 1px solid white;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.2);
-    }
 
-    #subscription-prompt h2 {
-        margin: 0;
-        font-size: 24px;
-    }
+        #subscription-prompt {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-    #subscription-prompt p {
-        margin: 10px 0 0;
-    }
+        #subscription-prompt h2 {
+            margin: 0;
+            font-size: 24px;
+        }
 
-   
-      
+        #subscription-prompt p {
+            margin: 10px 0 0;
+        }
+
+
+
         /* Style adjustments for the main content and sidebar */
         .dashboard-container {
             display: flex;
@@ -124,7 +137,7 @@
 
         .sidebar {
             width: 350px;
-            background-color:  rgba(13, 31, 48, 0.6);
+            background-color: rgba(13, 31, 48, 0.6);
             position: fixed;
             height: 100vh;
         }
@@ -139,6 +152,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="background-video">
         <video autoplay muted loop>
@@ -158,13 +172,14 @@
 
             <div class="profile" style="margin-top: 70px;">
                 <div class="profile-picture">
-                    <img src="/static/photos/Saty.png" alt="Profile Picture">
+                    <img id="profile_image" src="" alt="Profile Picture">
                 </div>
                 <!-- <h3 style="text-align: left;"><b>PROFILE</b></h3> -->
+                <p id="uid" style="text-align: left;">UId: Loading...</p>
                 <p id="name" style="text-align: left;">Name: Loading...</p>
                 <p id="mobile" style="text-align: left;">Mob No: Loading...</p>
-                <p style="text-align: left;">UId: 123456789012345</p>
-                
+
+
             </div>
             <div class="nav-section" style="margin-top: 15px;">
                 <a href="web.html" style="text-decoration: none; color: inherit;">
@@ -174,41 +189,44 @@
                     </div>
                 </a>
             </div>
-            
+
             <div class="nav-section" style="margin-top: 15px;">
                 <a href="Ip.html" style="text-decoration: none; color: inherit;">
                     <div class="nav-heading" style="display: flex; align-items: center; justify-content: flex-start;">
-                        <i class="fa fa-network-wired" style="width: 30px; text-align: center;"></i> <!-- IP Scanning Icon -->
+                        <i class="fa fa-network-wired" style="width: 30px; text-align: center;"></i>
+                        <!-- IP Scanning Icon -->
                         <span style="flex-grow: 1;">IP Scanning</span>
                     </div>
                 </a>
             </div>
-            
+
             <div class="nav-section" style="margin-top: 15px;">
                 <a href="app_scanning.html" style="text-decoration: none; color: inherit;">
                     <div class="nav-heading" style="display: flex; align-items: center; justify-content: flex-start;">
-                        <i class="fa fa-mobile-alt" style="width: 30px; text-align: center;"></i> <!-- App Scanning Icon -->
+                        <i class="fa fa-mobile-alt" style="width: 30px; text-align: center;"></i>
+                        <!-- App Scanning Icon -->
                         <span style="flex-grow: 1;">APP Scanning</span>
                     </div>
                 </a>
             </div>
-            
+
             <div class="nav-section" style="margin-top: 15px;">
                 <a href="cloud_scanning.html" style="text-decoration: none; color: inherit;">
                     <div class="nav-heading" style="display: flex; align-items: center; justify-content: flex-start;">
-                        <i class="fa fa-cloud" style="width: 30px; text-align: center;"></i> <!-- Cloud Scanning Icon -->
+                        <i class="fa fa-cloud" style="width: 30px; text-align: center;"></i>
+                        <!-- Cloud Scanning Icon -->
                         <span style="flex-grow: 1;">CLOUD Scanning</span>
                     </div>
                 </a>
             </div>
-            
-            
-            
-            
+
+
+
+
             <!-- New Scanning Section -->
-          
-            
-           
+
+
+
         </div>
 
         <!-- Main Content Area -->
@@ -229,97 +247,136 @@
                 </button>
             </div>
         </div>
+
+        <!-- Include jsPDF from CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script>
+            async function fetchUserProfile() {
+                try {
+                    const access_token = localStorage.getItem('access_token');
+                    console.log("Access Token:", access_token); // Log the token for debugging
         
-    <!-- Include jsPDF from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <script>
-        // Toggle navigation tree view
-        function toggleNavTreeview(id) {
-            const treeview = document.getElementById(id);
-            if (treeview.style.display === 'block') {
-                treeview.style.display = 'none';
-                treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
-            } else {
-                treeview.style.display = 'block';
-                treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
-            }
-        }
-
-        // Initiate IP address search and scan
-        async function searchIPAddress() {
-            const ipAddress = document.getElementById('ip-address-input').value;
-            if (ipAddress) {
-                console.log("Searching for IP address: " + ipAddress);
-                await startScan(ipAddress); // Call scan function
-            } else {
-                alert("Please enter a valid URL.");
-            }
-        }
-    
-        // Call the backend API to start the scan
-        async function startScan(ipAddress) {
-            const terminal = document.getElementById('terminal');
-            terminal.innerHTML = ''; // Clear terminal
-    
-            try {
-                const response = await fetch('http://localhost:8000/scan/advance_ip_scan/', { // Update with your backend endpoint
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ ip_address: ipAddress }) // Send IP address in request body
-                });
-    
-                if (!response.ok) {
-                    throw new Error('Failed to initiate scan.');
+                    const response = await fetch("http://localhost:8000/user/me", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${access_token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch user profile. Status: " + response.status);
+                    }
+        
+                    const userData = await response.json();
+                    document.getElementById("name").textContent = `Name: ${userData.name}`;
+                    document.getElementById("mobile").textContent = `Mob No: ${userData.mobile}`;
+                    document.getElementById("uid").textContent = `UID: ${userData.username}`;
+                    // Set profile image
+                    let imagePath = userData.image_path;
+                    if (!imagePath.startsWith('/')) {
+                        imagePath = '/' + imagePath;  // Add the leading '/' if it's not there
+                    }
+                    document.getElementById("profile_image").src = imagePath;
+                } catch (error) {
+                    console.error("Error fetching user profile:", error);
+                    alert("Error fetching user profile: " + error.message);
                 }
-    
-                const scanData = await response.json(); // Get response from the server
-                displayScanResult(scanData, ipAddress); // Display results in terminal
-            } catch (error) {
-                console.error("Error:", error);
-                alert('Error initiating scan. Please check the console for more details.');
             }
-        }
-    
-        // Display scan results in the terminal
-        function displayScanResult(scanData, ipAddress) {
-            const terminal = document.getElementById('terminal');
-    
-            terminal.innerHTML += `<span>Scan initiated for: ${ipAddress}</span><br>`;
-            terminal.innerHTML += `<span>Open Ports: ${scanData.open_ports.join(', ')}</span><br>`;
-            terminal.innerHTML += `<span>Vulnerabilities: ${scanData.vulnerabilities.join(', ')}</span><br>`;
-            terminal.innerHTML += `<span>Status: ${scanData.status}</span><br>`;
-    
-            document.getElementById('download-btn').style.display = 'block'; // Show download button
-        }
-    
-        // Generate and download PDF report
-        function downloadReport() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        
+            // Call fetchUserProfile when the page loads
+            window.onload = fetchUserProfile;
+        </script>
+        
 
-            const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
-            const terminalText = document.getElementById('terminal').textContent;
+        <script>
+            // Toggle navigation tree view
+            function toggleNavTreeview(id) {
+                const treeview = document.getElementById(id);
+                if (treeview.style.display === 'block') {
+                    treeview.style.display = 'none';
+                    treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
+                } else {
+                    treeview.style.display = 'block';
+                    treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
+                }
+            }
 
-            // Report content
-            const reportContent = [
-                `Web Scan Report for: ${ipAddress}`,
-                '------------------------',
-                terminalText
-            ];
+            // Initiate IP address search and scan
+            async function searchIPAddress() {
+                const ipAddress = document.getElementById('ip-address-input').value;
+                if (ipAddress) {
+                    console.log("Searching for IP address: " + ipAddress);
+                    await startScan(ipAddress); // Call scan function
+                } else {
+                    alert("Please enter a valid URL.");
+                }
+            }
 
-            // Add text to the PDF
-            let y = 10; // Starting Y position
-            reportContent.forEach(line => {
-                doc.text(line, 10, y);
-                y += 10; // Move to next line
-            });
+            // Call the backend API to start the scan
+            async function startScan(ipAddress) {
+                const terminal = document.getElementById('terminal');
+                terminal.innerHTML = ''; // Clear terminal
 
-            // Save the generated PDF
-            doc.save(`scan_report_${ipAddress}.pdf`);
-        }
-    </script>    
+                try {
+                    const response = await fetch('http://localhost:8000/scan/advance_ip_scan/', { // Update with your backend endpoint
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ip_address: ipAddress }) // Send IP address in request body
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to initiate scan.');
+                    }
+
+                    const scanData = await response.json(); // Get response from the server
+                    displayScanResult(scanData, ipAddress); // Display results in terminal
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert('Error initiating scan. Please check the console for more details.');
+                }
+            }
+
+            // Display scan results in the terminal
+            function displayScanResult(scanData, ipAddress) {
+                const terminal = document.getElementById('terminal');
+
+                terminal.innerHTML += `<span>Scan initiated for: ${ipAddress}</span><br>`;
+                terminal.innerHTML += `<span>Open Ports: ${scanData.open_ports.join(', ')}</span><br>`;
+                terminal.innerHTML += `<span>Vulnerabilities: ${scanData.vulnerabilities.join(', ')}</span><br>`;
+                terminal.innerHTML += `<span>Status: ${scanData.status}</span><br>`;
+
+                document.getElementById('download-btn').style.display = 'block'; // Show download button
+            }
+
+            // Generate and download PDF report
+            function downloadReport() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
+                const terminalText = document.getElementById('terminal').textContent;
+
+                // Report content
+                const reportContent = [
+                    `Web Scan Report for: ${ipAddress}`,
+                    '------------------------',
+                    terminalText
+                ];
+
+                // Add text to the PDF
+                let y = 10; // Starting Y position
+                reportContent.forEach(line => {
+                    doc.text(line, 10, y);
+                    y += 10; // Move to next line
+                });
+
+                // Save the generated PDF
+                doc.save(`scan_report_${ipAddress}.pdf`);
+            }
+        </script>
 </body>
+
 </html>

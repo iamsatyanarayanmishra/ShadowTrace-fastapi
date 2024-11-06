@@ -1,15 +1,8 @@
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 from datetime import datetime
+from fastapi import File, UploadFile
 
-class UserUpdateSchema(BaseModel):
-    username : str
-    name: str
-    email: EmailStr
-    mobile: Optional[str]
-    # dob: Optional[datetime]
-    address: Optional[str]
-    password: str
 
 class UserCreationSchema(BaseModel):
     company_name : str
@@ -17,12 +10,20 @@ class UserCreationSchema(BaseModel):
     is_osint_subscribed : bool
     is_eDiscovery_subscribed : bool
 
+
 class UserLoginSchema(BaseModel):
     username: str
     password: str
 
+
+class UserUpdateSchema(BaseModel):
+    name: str
+    email: EmailStr
+    mobile: Optional[str]
+    address: Optional[str]
+    password: Optional[str]
+
 class OTPVerifySchema(BaseModel):
-    username : str
     otp: str
 
 class UserResponse(BaseModel):
@@ -41,5 +42,15 @@ class ResetPasswordRequest(BaseModel):
     new_password: str
 
 class isSubscribedSchema(BaseModel):
-    username: str
     subscribtionModel: str
+
+class UserSchema(BaseModel):
+    username: str
+    name: str
+    email: EmailStr
+    mobile: Optional[str] = None
+    address: Optional[str] = None
+    image_path: Optional[str] = None  # Add this field for profile picture URL
+
+    class Config:
+        orm_mode = True

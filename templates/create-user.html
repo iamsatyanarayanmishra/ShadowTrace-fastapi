@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
@@ -103,12 +105,17 @@
             color: white;
             border: none;
             cursor: pointer;
-            height: 50px; /* Set height */
-            width: 200px;  /* Set width */
-            font-size: 16px; /* Adjust font size */
+            height: 50px;
+            /* Set height */
+            width: 200px;
+            /* Set width */
+            font-size: 16px;
+            /* Adjust font size */
             display: flex;
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            justify-content: center;
+            /* Center horizontally */
             transition: background-color 0.3s ease, transform 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -117,17 +124,21 @@
 
         .form-container form input[type="submit"]:hover {
             background-color: #1b3a6c;
-            transform: scale(1.05); /* Slightly enlarge on hover */
+            transform: scale(1.05);
+            /* Slightly enlarge on hover */
         }
 
         .form-container form input[type="submit"] .icon {
-            margin-right: 8px; /* Space between icon and text */
-            font-size: 18px; /* Adjust icon size */
+            margin-right: 8px;
+            /* Space between icon and text */
+            font-size: 18px;
+            /* Adjust icon size */
             transition: transform 0.3s ease;
         }
 
         .form-container form input[type="submit"]:hover .icon {
-            transform: rotate(20deg); /* Rotate icon on hover */
+            transform: rotate(20deg);
+            /* Rotate icon on hover */
         }
 
         .form-container .error-message {
@@ -136,18 +147,22 @@
             margin-bottom: 10px;
             display: none;
         }
+
         .subscription-options {
-    display: flex;
-    align-items: center; /* Aligns the items vertically */
-    margin-top: 10px; /* Adds some spacing above the options */
-}
+            display: flex;
+            align-items: center;
+            /* Aligns the items vertically */
+            margin-top: 10px;
+            /* Adds some spacing above the options */
+        }
 
-.subscription-options label {
-    margin-right: 20px; /* Spacing between the options */
-}
-
+        .subscription-options label {
+            margin-right: 20px;
+            /* Spacing between the options */
+        }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
@@ -175,7 +190,8 @@
                     <input type="text" id="company-name" name="companyName" placeholder="Enter company name" required>
 
                     <label for="company-address">Company Address:</label>
-                    <textarea id="company-address" name="companyAddress" rows="4" placeholder="Enter company address" required></textarea>
+                    <textarea id="company-address" name="companyAddress" rows="4" placeholder="Enter company address"
+                        required></textarea>
 
                     <label>Subscription For:</label>
                     <div class="subscription-options">
@@ -188,12 +204,12 @@
                             E-Discovery
                         </label>
                     </div>
-                    
-               
+
+
                     <div class="error-message" id="form-error"></div>
 
                     <input type="submit" value="Submit Subscription" style="margin-left: 150px;">
-                   <!-- Add an icon here -->
+                    <!-- Add an icon here -->
                 </form>
             </div>
         </div>
@@ -205,7 +221,7 @@
         const errorMessage = document.getElementById('form-error');
 
         // Event listener for form submission
-        form.addEventListener('submit', async function(event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault(); // Prevent default form submission
 
             // Gather form data
@@ -230,7 +246,7 @@
                 is_osint_subscribed: isOsintSubscribed,
                 is_eDiscovery_subscribed: isEDiscoverySubscribed
             };
-            
+
             try {
                 // Send the user data to the FastAPI endpoint using fetch
                 const response = await fetch('http://localhost:8000/admin/create-user/', {
@@ -254,6 +270,7 @@
             }
         });
 
-    </script>    
+    </script>
 </body>
+
 </html>
