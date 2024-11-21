@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHADOWTRACE</title>
-    
+
     <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap">
 </head>
+
 <body>
     <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
         <a href="index.html">
             <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 70px;">
         </a>
     </div>
-    
+
     <div class="background-video">
         <video id="background-video" autoplay muted loop>
             <source src="/static/Video/Main video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="video-overlay"></div>
-    </div>
-    
+    </div>  
+
     <div id="login-placeholder">
         <form id="login-form">
             <label for="username" style="color: whitesmoke;">Id:</label>
@@ -38,22 +40,23 @@
                 <button type="submit" class="jkit-button-wrapper">VERIFY</button>
             </div>
         </form>
-        
+
         <p style="color: whitesmoke; margin-top: 20px;margin-left: 115px;">
             Not registered?
         </p>
         <p>
-            <a href="mailto:admin@example.com" style="color: #ccf0e8; text-decoration: underline; margin-left: 75px;">Contact the administrator</a>
+            <a href="mailto:admin@example.com"
+                style="color: #ccf0e8; text-decoration: underline; margin-left: 75px;">Contact the administrator</a>
         </p>
     </div>
-    
+
     <script type='text/javascript'>
-        document.getElementById('login-form').addEventListener('submit', async function(event) {
+        document.getElementById('login-form').addEventListener('submit', async function (event) {
             event.preventDefault();  // Prevent the form from submitting the traditional way
-            
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-    
+
             const response = await fetch('http://localhost:8000/user/login/', {
                 method: 'POST',
                 headers: {
@@ -64,9 +67,9 @@
                     password: password,
                 }),
             });
-    
+
             const data = await response.json();
-            
+
             if (response.ok) {
                 if (data.message === "Update your profile before proceeding") {
                     alert("Please update your profile!");
@@ -84,6 +87,7 @@
                 alert("Login failed: " + data.detail);
             }
         });
-    </script>    
+    </script>
 </body>
+
 </html>

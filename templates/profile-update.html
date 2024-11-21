@@ -50,8 +50,8 @@
             <input type="password" id="password" name="password" placeholder="Enter your password">
             <br>
 
-            <label for="profile_image" style="color: whitesmoke;">Profile Image:</label>
-            <input type="file" id="profile_image" name="profile_image" accept="image/*">
+            <label for="image_path" style="color: whitesmoke;">Profile Image:</label>
+            <input type="file" id="image_path" name="image_path" accept="image/*">
             <br>
 
             <div class="jeg-elementor-kit jkit-button icon-position-before jeg_module_3978_2_66a7689265bfc">
@@ -71,9 +71,9 @@
 
             const formData = new FormData(this);  // Collects all form data, including the file
 
-            // You can log the collected data (including files) to see what was captured
+            // You can log the collected data (including files) to see what was captured.
 
-            try {
+            try { 
                 const response = await fetch('http://localhost:8000/user/update-profile/', {
                     method: 'POST',
                     headers: {

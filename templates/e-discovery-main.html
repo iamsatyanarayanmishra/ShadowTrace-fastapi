@@ -13,44 +13,101 @@
     <link href="/static/css/style.css" rel="stylesheet">
     <link href="/static/css/call.css" rel="stylesheet">
     <style>
-        /* Centering the main content */
-
-
-
-        .main-content {
-            margin-left: 250px;
-            /* Ensure the main content starts after the sidebar */
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .info-section {
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            /* Smokey transparent background */
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 20px;
-            display: inline-block;
-            /* Center the container */
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        .container {
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .info-section {
+            background: white;
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .info-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .uid-label {
+            font-weight: bold;
+        }
+
+        .uid-input {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .uid-input input {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .uid-separator {
+            width: 10px;
+            /* Width of the separator */
+            height: 1px;
+            /* Height of the separator line */
+            background-color: #000;
+            /* Color of the separator line */
+            margin: 0 5px;
+            /* Margin between inputs */
+            align-self: center;
+            /* Center the separator line */
+        }
+
+        .mobile,
+        .email {
+            margin-top: 5px;
+        }
+
+        .email a {
+            text-decoration: underline;
+            color: #007BFF;
+            /* Email link color */
+        }
+
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .chart {
+            width: 100%;
+            height: 200px;
+            border-radius: 5px;
+        }
+
+        .chart-title {
+            text-align: center;
+            margin: 10px 0;
+        }
+
 
         .search-container {
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Transparent background */
+            margin-top: 50px;
+            background-color: rgba(255, 255, 255, 0.5);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Styling the search input and buttons */
         .search-input {
             width: 300px;
             padding: 10px;
@@ -59,16 +116,15 @@
             border: none;
             outline: none;
             font-size: 16px;
-            color: white;
-            /* Change input text color to white */
-            background-color: rgba(255, 252, 252, 0.2);
-            /* Slight transparency for input background */
+            color: black;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .search-btn,
         .submit-btn {
-            background-color: #e9f0ea;
-            color: rgb(0, 0, 0);
+            background-color: #0a3b57;
+            color: rgb(255, 250, 250);
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -79,27 +135,24 @@
 
         .search-btn i {
             font-size: 18px;
-            /* Size of search icon */
         }
 
         .search-btn:hover,
         .submit-btn:hover {
-            background-color: #00ff00;
+            background-color: #32648d;
         }
 
         .submit-container {
             margin-top: 20px;
         }
 
-        /* Terminal Styling */
         .terminal {
-            background-color: rgba(11, 7, 7, 0.7);
-            /* 50% transparency */
-            color: #00ff00;
+            background-color: rgba(11, 7, 7, 0.9);
+            color: green;
             padding: 20px;
             border-radius: 10px;
             width: 100%;
-            max-width: 800px;
+            max-width: 1200px;
             height: 200px;
             overflow-y: auto;
             margin-top: 20px;
@@ -107,48 +160,241 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
+        .search-container {
+
+            background-color: rgba(255, 255, 255, 0.5);
+
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Adjust button width to match the input */
+
+
         .terminal .line {
             display: block;
         }
 
-        #subscription-prompt {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid white;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        #subscription-prompt h2 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        #subscription-prompt p {
-            margin: 10px 0 0;
-        }
-
-
-
-        /* Style adjustments for the main content and sidebar */
         .dashboard-container {
             display: flex;
         }
 
         .sidebar {
             width: 350px;
-            background-color: rgba(13, 31, 48, 0.6);
+            background-color: #0b1b30;
             position: fixed;
             height: 100vh;
         }
 
+        .profile {
+            margin-top: 70px;
+            padding: 20px;
+        }
+
+        .profile img {
+            width: 120px;
+            border-radius: 50%;
+        }
+
+        .nav-section {
+            margin-top: 15px;
+        }
+
+        .nav-heading {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: white;
+        }
+
+        .nav-heading i {
+            width: 30px;
+        }
+
+        .nav-treeview {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .nav-treeview ul {
+            list-style-type: none;
+        }
+
+        .nav-treeview ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-treeview li {
+            position: relative;
+
+        }
+
+        .nav-treeview a {
+            text-decoration: none;
+            color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-section a:hover {
+            color: #021e3a;
+            /* Change this color to your preferred hover color */
+            background-color: rgba(177, 233, 243, 0.936);
+            /* Optional: Add background color on hover */
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .toggle-btn {
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .sub-menu {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .scan-container {
+            display: flex;
+            /* Use flexbox to arrange items in a row */
+            justify-content: space-between;
+            /* Space items evenly */
+            margin: 10px 0;
+            /* Add some margin for spacing */
+        }
+
+        .scan-item {
+            width: 130px;
+            /* Set a fixed width for scan items */
+            border-radius: 5px;
+            /* Rounded corners */
+            text-align: center;
+            /* Center text */
+        }
+
+        .scan-item a {
+            color: white;
+            /* Text color */
+            text-decoration: none;
+            /* Remove underline */
+            display: block;
+            /* Block display for full clickable area */
+            padding: 10px;
+            /* Padding for clickable area */
+        }
+
+
+
+        .nav-treeview li.active .sub-menu {
+            display: block;
+        }
+
+
+        .nav-treeview ul li a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .nav-treeview ul li a i {
+            margin-right: 10px;
+        }
+
         .main-content {
-            margin-left: 300px;
+            margin-left: 350px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: calc(100% - 300px);
+            margin-top: -60px;
+            width: calc(100% - 350px);
+        }
+
+        .scan-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* General UID Box Styling */
+        /* General UID and Mobile Box Styling */
+        .uid-box {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .mobile-box {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Mobile Section Styling */
+        .flag-icon {
+            width: 20px;
+            height: 30px;
+            vertical-align: left;
+        }
+
+        .mobile-number {
+            display: flex;
+
+        }
+
+        /* Email Section Styling */
+        .email-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #timer-container {
+            position: absolute;
+            top: 70px;
+            right: 50px;
+
+            padding: 10px;
+            border-radius: 5px;
+
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .email-box {
+            width: 110px;
+            height: 30px;
+            padding: 0 5px;
+            text-align: center;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .email-container span {
+            margin: 0 5px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -164,219 +410,312 @@
     <div class="dashboard-container">
         <!-- Sidebar (unchanged) -->
         <div class="sidebar">
+            <!-- Fixed Top Section for Company Logo -->
             <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
                 <a href="index.html">
                     <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
                 </a>
             </div>
 
-            <div class="profile" style="margin-top: 70px;">
+            <!-- Profile Section -->
+            <div class="profile">
                 <div class="profile-picture">
-                    <img id="profile_image" src="" alt="Profile Picture">
+                    <img id="image_path" src="" alt="Profile Picture">
                 </div>
-                <!-- <h3 style="text-align: left;"><b>PROFILE</b></h3> -->
-                <p id="uid" style="text-align: left;">UId: Loading...</p>
-                <p id="name" style="text-align: left;">Name: Loading...</p>
-                <p id="mobile" style="text-align: left;">Mob No: Loading...</p>
-
-
-            </div>
-            <div class="nav-section" style="margin-top: 15px;">
-                <a href="web.html" style="text-decoration: none; color: inherit;">
-                    <div class="nav-heading" style="display: flex; align-items: center; justify-content: flex-start;">
-                        <i class="fa fa-search" style="width: 30px; text-align: center;"></i> <!-- Web Scanning Icon -->
-                        <span style="flex-grow: 1;">Web Scanning</span>
+                <div style="text-align: center; margin-top: 10px;">
+                    <p style="font-weight: bold;">UID</p>
+                    <!-- Dynamic UID from JS -->
+                    <div id="uid" style="display: flex; justify-content: center; margin-bottom: 10px;">
+                        <!-- UID content will be set here by JavaScript -->
                     </div>
-                </a>
-            </div>
+                </div>
 
-            <div class="nav-section" style="margin-top: 15px;">
-                <a href="Ip.html" style="text-decoration: none; color: inherit;">
-                    <div class="nav-heading" style="display: flex; align-items: center; justify-content: flex-start;">
-                        <i class="fa fa-network-wired" style="width: 30px; text-align: center;"></i>
-                        <!-- IP Scanning Icon -->
-                        <span style="flex-grow: 1;">IP Scanning</span>
+                <!-- Mobile Section -->
+                <div class="mobile" style="text-align: center; margin-top: 20px;">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img src="/static/Logo/india-flag.png" alt="Indian Flag"
+                            class="flag-icon">
+                        <div class="mobile-number" id="mobile" style="display: flex; margin-left: 5px;">
+                            <!-- Mobile number content will be set here by JavaScript -->
+                        </div>
                     </div>
-                </a>
-            </div>
+                </div>
 
-            <div class="nav-section" style="margin-top: 15px;">
-                <a href="app_scanning.html" style="text-decoration: none; color: inherit;">
-                    <div class="nav-heading" style="display: flex; align-items: center; justify-content: flex-start;">
-                        <i class="fa fa-mobile-alt" style="width: 30px; text-align: center;"></i>
-                        <!-- App Scanning Icon -->
-                        <span style="flex-grow: 1;">APP Scanning</span>
+                <!-- Email Section -->
+                <div class="email" style="text-align: center; margin-top: 20px;">
+                    <div class="email-container">
+                        <span id="email_user"></span>@<span id="email_domain"></span>
                     </div>
-                </a>
+                </div>
             </div>
 
-            <div class="nav-section" style="margin-top: 15px;">
-                <a href="cloud_scanning.html" style="text-decoration: none; color: inherit;">
-                    <div class="nav-heading" style="display: flex; align-items: center; justify-content: flex-start;">
-                        <i class="fa fa-cloud" style="width: 30px; text-align: center;"></i>
-                        <!-- Cloud Scanning Icon -->
-                        <span style="flex-grow: 1;">CLOUD Scanning</span>
-                    </div>
-                </a>
-            </div>
-
-
-
-
-            <!-- New Scanning Section -->
-
-
-
-        </div>
-
-        <!-- Main Content Area -->
-        <div class="main-content" style="margin-left: 350px;margin-top: 150px;">
-            <div class="search-container">
-                <h2 style="color: white;">Web Scanning</h2>
-                <input type="text" id="ip-address-input" placeholder="https://" class="search-input">
-                <button onclick="searchIPAddress()" class="search-btn"><i class="fa fa-search"></i></button>
-            </div>
-
-            <!-- Terminal Section -->
-            <div id="terminal" class="terminal"></div>
-
-            <!-- Download Button -->
-            <div class="submit-container">
-                <button onclick="downloadReport()" class="submit-btn" id="download-btn" style="display: none;">
-                    <i class="fa fa-download"></i> Download Report
-                </button>
+            <!-- Navigation Section (unchanged) -->
+            <div class="nav-section">
+                <div class="nav-heading" onclick="toggleNavTreeview('scanning-treeview')">
+                    <i class="fa fa-bullseye"></i>
+                    <span>Scanning</span>
+                    <i class="fa fa-angle-right right"></i>
+                </div>
+                <div class="nav-treeview" id="scanning-treeview">
+                    <!-- IP Scanning, Web Scanning, etc., remain the same -->
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Include jsPDF from CDN -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-        <script>
-            async function fetchUserProfile() {
-                try {
-                    const access_token = localStorage.getItem('access_token');
-                    console.log("Access Token:", access_token); // Log the token for debugging
-        
-                    const response = await fetch("http://localhost:8000/user/me", {
-                        method: "GET",
-                        headers: {
-                            "Authorization": `Bearer ${access_token}`,
-                            "Content-Type": "application/json"
-                        }
-                    });
-        
-                    if (!response.ok) {
-                        throw new Error("Failed to fetch user profile. Status: " + response.status);
+    <script>
+        async function fetchUserProfile() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+
+                if (!access_token) {
+                    throw new Error("Access token is missing");
+                }
+
+                const response = await fetch("http://localhost:8000/user/me", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${access_token}`,
+                        "Content-Type": "application/json"
                     }
-        
-                    const userData = await response.json();
-                    document.getElementById("name").textContent = `Name: ${userData.name}`;
-                    document.getElementById("mobile").textContent = `Mob No: ${userData.mobile}`;
-                    document.getElementById("uid").textContent = `UID: ${userData.username}`;
-                    // Set profile image
-                    let imagePath = userData.image_path;
-                    if (!imagePath.startsWith('/')) {
-                        imagePath = '/' + imagePath;  // Add the leading '/' if it's not there
-                    }
-                    document.getElementById("profile_image").src = imagePath;
-                } catch (error) {
-                    console.error("Error fetching user profile:", error);
-                    alert("Error fetching user profile: " + error.message);
-                }
-            }
-        
-            // Call fetchUserProfile when the page loads
-            window.onload = fetchUserProfile;
-        </script>
-        
-
-        <script>
-            // Toggle navigation tree view
-            function toggleNavTreeview(id) {
-                const treeview = document.getElementById(id);
-                if (treeview.style.display === 'block') {
-                    treeview.style.display = 'none';
-                    treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
-                } else {
-                    treeview.style.display = 'block';
-                    treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
-                }
-            }
-
-            // Initiate IP address search and scan
-            async function searchIPAddress() {
-                const ipAddress = document.getElementById('ip-address-input').value;
-                if (ipAddress) {
-                    console.log("Searching for IP address: " + ipAddress);
-                    await startScan(ipAddress); // Call scan function
-                } else {
-                    alert("Please enter a valid URL.");
-                }
-            }
-
-            // Call the backend API to start the scan
-            async function startScan(ipAddress) {
-                const terminal = document.getElementById('terminal');
-                terminal.innerHTML = ''; // Clear terminal
-
-                try {
-                    const response = await fetch('http://localhost:8000/scan/advance_ip_scan/', { // Update with your backend endpoint
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ ip_address: ipAddress }) // Send IP address in request body
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Failed to initiate scan.');
-                    }
-
-                    const scanData = await response.json(); // Get response from the server
-                    displayScanResult(scanData, ipAddress); // Display results in terminal
-                } catch (error) {
-                    console.error("Error:", error);
-                    alert('Error initiating scan. Please check the console for more details.');
-                }
-            }
-
-            // Display scan results in the terminal
-            function displayScanResult(scanData, ipAddress) {
-                const terminal = document.getElementById('terminal');
-
-                terminal.innerHTML += `<span>Scan initiated for: ${ipAddress}</span><br>`;
-                terminal.innerHTML += `<span>Open Ports: ${scanData.open_ports.join(', ')}</span><br>`;
-                terminal.innerHTML += `<span>Vulnerabilities: ${scanData.vulnerabilities.join(', ')}</span><br>`;
-                terminal.innerHTML += `<span>Status: ${scanData.status}</span><br>`;
-
-                document.getElementById('download-btn').style.display = 'block'; // Show download button
-            }
-
-            // Generate and download PDF report
-            function downloadReport() {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-
-                const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
-                const terminalText = document.getElementById('terminal').textContent;
-
-                // Report content
-                const reportContent = [
-                    `Web Scan Report for: ${ipAddress}`,
-                    '------------------------',
-                    terminalText
-                ];
-
-                // Add text to the PDF
-                let y = 10; // Starting Y position
-                reportContent.forEach(line => {
-                    doc.text(line, 10, y);
-                    y += 10; // Move to next line
                 });
 
-                // Save the generated PDF
-                doc.save(`scan_report_${ipAddress}.pdf`);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch user profile. Status: ${response.status}`);
+                }
+
+                const userData = await response.json();
+
+                // Update HTML elements with user data
+                document.getElementById("image_path").src = "/" + userData.image_path;
+
+                document.getElementById("uid").textContent = userData.username;
+
+                // Update mobile number dynamically
+                const mobileContainer = document.getElementById("mobile");
+                mobileContainer.innerHTML = "";
+                userData.mobile.split('').forEach(num => {
+                    const box = document.createElement("input");
+                    box.type = "text";
+                    box.value = num;
+                    box.className = "mobile-box";
+                    box.readOnly = true;
+                    mobileContainer.appendChild(box);
+                });
+
+                // Split email into user and domain
+                const [emailUser, emailDomain] = userData.email.split("@");
+                document.getElementById("email_user").textContent = emailUser;
+                document.getElementById("email_domain").textContent = emailDomain;
+
+                console.log("User profile fetched successfully:", userData);
+            } catch (error) {
+                console.error("Error fetching user profile:", error);
+                alert("Error fetching user profile: " + error.message);
             }
-        </script>
+        }
+
+        // Call fetchUserProfile when the page loads
+        window.onload = fetchUserProfile;
+    </script>
+
+
+    <!-- Bottom Logo and Back Button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="history.back()"
+            style="border: none; background-color: #32648d; color: white; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-left: -230px;">
+            <i class="fa fa-arrow-left"></i> Back
+        </button>
+    </div>
+    </div>
+    <!-- Main Content Area -->
+    <div class="main-content" style="margin-left: 350px;margin-top: 150px;">
+        <!-- <div class="search-container">
+            <h2 style="color: white;">Ip Scannig</h2>
+            <input type="text" id="ip-address-input" placeholder="https://" class="search-input">
+            <button onclick="searchIPAddress()" class="search-btn"><i class="fa fa-search"></i></button>
+        </div> -->
+
+        <!-- Terminal Section -->
+
+
+        <!-- Download Button -->
+        <div class="submit-container">
+            <button onclick="downloadReport()" class="submit-btn" id="download-btn" style="display: none;">
+                <i class="fa fa-download"></i> Download Report
+            </button>
+        </div>
+    </div>
+
+    <!-- Include jsPDF from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+
+        function toggleNavTreeview(treeviewId) {
+            const treeview = document.getElementById(treeviewId);
+            const toggleIcon = treeview.previousElementSibling.querySelector('.right');
+            if (treeview.style.display === "none" || !treeview.style.display) {
+                treeview.style.display = "block";
+                toggleIcon.classList.remove('fa-angle-right');
+                toggleIcon.classList.add('fa-angle-down');
+            } else {
+                treeview.style.display = "none";
+                toggleIcon.classList.remove('fa-angle-down');
+                toggleIcon.classList.add('fa-angle-right');
+            }
+        } document.querySelectorAll('.toggle-btn').forEach(function (toggle) {
+            toggle.addEventListener('click', function () {
+                const parentLi = this.parentElement.parentElement;
+                parentLi.classList.toggle('active');
+
+                // Change the plus to minus when submenu is open
+                if (parentLi.classList.contains('active')) {
+                    this.textContent = '';
+                } else {
+                    this.textContent = '';
+                }
+            });
+        });
+
+        function searchIPAddress() {
+            const ipAddress = document.getElementById('ip-address-input').value;
+            if (ipAddress) {
+                console.log("Searching for IP address: " + ipAddress);
+                startScan(ipAddress);
+            } else {
+                alert("Please enter a valid URL.");
+            }
+        }
+
+        // Simulate the web scanning process in the terminal
+        function startScan(ipAddress) {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = ''; // Clear terminal
+            const lines = [
+                `Initiating web scan for: ${ipAddress}`,
+                `Connecting to ${ipAddress}...`,
+                'Scanning ports...',
+                'Open ports: 80 (HTTP), 443 (HTTPS)',
+                'Checking for vulnerabilities...',
+                'No critical vulnerabilities found.',
+                'Scan complete.'
+            ];
+
+            let lineIndex = 0;
+            const interval = setInterval(() => {
+                const newLine = document.createElement('span');
+                newLine.classList.add('line');
+                newLine.textContent = lines[lineIndex];
+                terminal.appendChild(newLine);
+                terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
+                lineIndex++;
+
+                if (lineIndex === lines.length) {
+                    clearInterval(interval);
+                    document.getElementById('download-btn').style.display = 'block'; // Show download button after scan
+                }
+            }, 1000); // Add delay between lines to simulate a real scan
+        }
+
+        function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
+
+            // Report content
+            const reportContent = [
+                `Web Scan Report for: ${ipAddress}`,
+                '------------------------',
+                'Ports scanned:',
+                '- 80 (HTTP)',
+                '- 443 (HTTPS)',
+                'Vulnerabilities found:',
+                '- No critical vulnerabilities.',
+                '------------------------',
+                'Scan complete.'
+            ];
+
+            // Add text to the PDF
+            let y = 10; // Starting Y position
+            reportContent.forEach(line => {
+                doc.text(line, 10, y);
+                y += 10; // Move to next line
+            });
+
+            // Save the generated PDF
+            doc.save(`scan_report_${ipAddress}.pdf`);
+        }
+        function searchIPAddress() {
+            const ipAddress = document.getElementById('ip-address-input').value;
+            if (ipAddress) {
+                console.log("Searching for IP address: " + ipAddress);
+                startScan(ipAddress);
+            } else {
+                alert("Please enter a valid URL.");
+            }
+        }
+
+        // Simulate the web scanning process in the terminal
+        function startScan(ipAddress) {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = ''; // Clear terminal
+            const lines = [
+                `Initiating web scan for: ${ipAddress}`,
+                `Connecting to ${ipAddress}...`,
+                'Scanning ports...',
+                'Open ports: 80 (HTTP), 443 (HTTPS)',
+                'Checking for vulnerabilities...',
+                'No critical vulnerabilities found.',
+                'Scan complete.'
+            ];
+
+            let lineIndex = 0;
+            const interval = setInterval(() => {
+                const newLine = document.createElement('span');
+                newLine.classList.add('line');
+                newLine.textContent = lines[lineIndex];
+                terminal.appendChild(newLine);
+                terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
+                lineIndex++;
+
+                if (lineIndex === lines.length) {
+                    clearInterval(interval);
+                    document.getElementById('download-btn').style.display = 'block'; // Show download button after scan
+                }
+            }, 1000); // Add delay between lines to simulate a real scan
+        }
+
+        function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const ipAddress = document.getElementById('ip-address-input').value || 'unknown';
+
+            // Report content
+            const reportContent = [
+                `Web Scan Report for: ${ipAddress}`,
+                '------------------------',
+                'Ports scanned:',
+                '- 80 (HTTP)',
+                '- 443 (HTTPS)',
+                'Vulnerabilities found:',
+                '- No critical vulnerabilities.',
+                '------------------------',
+                'Scan complete.'
+            ];
+
+            // Add text to the PDF
+            let y = 10; // Starting Y position
+            reportContent.forEach(line => {
+                doc.text(line, 10, y);
+                y += 10; // Move to next line
+            });
+
+            // Save the generated PDF
+            doc.save(`scan_report_${ipAddress}.pdf`);
+        }
+    </script>
 </body>
 
 </html>

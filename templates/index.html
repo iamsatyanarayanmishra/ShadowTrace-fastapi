@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADOWTRACE</title>
+    
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="stylesheet" href="./css/style.css"> <!-- Ensure you have your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap"> <!-- Nova Square Font -->
+</head>
+<body>
+    <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+        <a href="index.html">
+            <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 70px;">
+        </a>
+    </div>
+    
+    <div class="background-video">
+        <video id="background-video" autoplay muted loop>
+            <source src="./Video/Main video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div> <!-- Dark overlay -->
+    </div>
+    <div id="login-placeholder">
+        
+        <form id="login-form">
+            <label for="username" style="color: whitesmoke;">Id:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your Id" required>
+            <br>
+            <label for="password" style="color: whitesmoke;">Passcode:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your Passcode" required>
+            <br>
+            <div class="jeg-elementor-kit jkit-button icon-position-before jeg_module_3978_2_66a7689265bfc">
+                <button type="submit" class="jkit-button-wrapper">VERIFY</button>
+            </div>
+        </form>
+        
+        <p style="color: whitesmoke; margin-top: 20px;margin-left: 115px; ">
+            Not registered? </p>
+          <p><a href="mailto:admin@example.com" style="color: #ccf0e8; text-decoration: underline; margin-left: 75px;">Contact the administrator</a>
+        </p>
+    </div>
+    
+    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script type='text/javascript'>
+        // Set the video playback speed
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('background-video');
+            video.playbackRate = 0.5; // Set to desired speed (0.5 for half speed)
+        });
+
+        // Lazy Load Observer
+        const lazyloadRunObserver = () => {
+            const lazyloadBackgrounds = document.querySelectorAll('.e-con.e-parent:not(.e-lazyloaded)');
+            const lazyloadBackgroundObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        let lazyloadBackground = entry.target;
+                        if (lazyloadBackground) {
+                            lazyloadBackground.classList.add('e-lazyloaded');
+                        }
+                        lazyloadBackgroundObserver.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '200px 0px 200px 0px' });
+            lazyloadBackgrounds.forEach((lazyloadBackground) => {
+                lazyloadBackgroundObserver.observe(lazyloadBackground);
+            });
+        };
+        const events = [
+            'DOMContentLoaded',
+            'elementor/lazyload/observe',
+        ];
+        events.forEach((event) => {
+            document.addEventListener(event, lazyloadRunObserver);
+        });
+
+        // Form Validation
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            const phoneNumber = document.getElementById('phone-number').value;
+            const email = document.getElementById('email').value;
+            let isValid = true;
+
+            // Phone Number Validation (simple check for 10 digits)
+            const phonePattern = /^[0-9]{10}$/;
+            if (!phonePattern.test(phoneNumber)) {
+                alert('Please enter a valid 10-digit phone number.');
+                isValid = false;
+            }
+
+            // Email Validation
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if invalid
+            }
+        });
+    </script>
+   
+</body>
+</html>

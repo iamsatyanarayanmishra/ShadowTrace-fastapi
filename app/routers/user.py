@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import os
 import shutil
 from typing import Optional
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Response, UploadFile, status
@@ -19,7 +20,6 @@ templates = Jinja2Templates(directory="templates")
 
 # Mount the static folder for CSS, JS, etc.
 router.mount("/static", StaticFiles(directory="static"), name="static")
-
 
 
 @router.post("/login/")
@@ -50,7 +50,7 @@ async def update_profile(
     mobile: str = Form(None),
     address: str = Form(None),
     password: str = Form(None),
-    profile_image: UploadFile = File(None),
+    image_path: UploadFile = File(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -70,12 +70,22 @@ async def update_profile(
         user.password = get_password_hash(password)
 
     # Handle profile image upload
-    if profile_image:
+    if image_path:
         # Define the path where the image will be stored
-        image_path = f"static/photos/{user.id}_{profile_image.filename}"
-        with open(image_path, "wb") as buffer:
-            shutil.copyfileobj(profile_image.file, buffer)
-        user.image_path = image_path # Save the image path in the database
+        file_path = f"static/photos/{user.id}_{image_path.filename}"
+        
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        # Save the uploaded file to the specified path
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(image_path.file, buffer)
+        
+        # Update the user's image path in the database
+        user.image_path = file_path
+
+        # Save changes to the database if required (e.g., using an ORM)
+        # session.commit() or await db.save(user) if using async ORM
 
     # Generate OTP for email verification
     otp = generate_otp(user.email)
@@ -86,8 +96,6 @@ async def update_profile(
     db.commit()
 
     return {"message": "Profile update successful."}
-
-
 
 
 @router.post("/verify-email/")
@@ -101,7 +109,7 @@ def verify_email(otp_data: OTPVerifySchema, db: Session = Depends(get_db), user:
     user.otp = None  # Clear OTP after verification
     db.commit()
 
-    return {"message": "Email verified successfully"}
+    return {"message": "Email verified successfully"}   
 
 
 @router.post("/verify-login/")
@@ -127,9 +135,7 @@ def read_current_user(current_user: User = Depends(get_current_user)):
 
 @router.post("/verify-subscription/")
 def verify_subscription(Subscription_Data: isSubscribedSchema, db: Session = Depends(get_db), user: User= Depends(get_current_user)):
-    # Fetch the user by username
-    # user = db.query(User).filter(User.username == Subscription_Data.username).first()
-
+    
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 

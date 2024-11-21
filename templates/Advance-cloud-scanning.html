@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShadowTrace -Advance Cloud Scanning</title>
-    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="icon" href="/static/Logo/ShadowTrace.svg" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/call.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/call.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -55,11 +56,16 @@
         }
 
         .uid-separator {
-            width: 10px; /* Width of the separator */
-            height: 1px; /* Height of the separator line */
-            background-color: #000; /* Color of the separator line */
-            margin: 0 5px; /* Margin between inputs */
-            align-self: center; /* Center the separator line */
+            width: 10px;
+            /* Width of the separator */
+            height: 1px;
+            /* Height of the separator line */
+            background-color: #000;
+            /* Color of the separator line */
+            margin: 0 5px;
+            /* Margin between inputs */
+            align-self: center;
+            /* Center the separator line */
         }
 
         .mobile,
@@ -69,7 +75,8 @@
 
         .email a {
             text-decoration: underline;
-            color: #007BFF; /* Email link color */
+            color: #007BFF;
+            /* Email link color */
         }
 
         .charts {
@@ -90,7 +97,7 @@
             margin: 10px 0;
         }
 
-       
+
         .search-container {
             margin-top: 50px;
             background-color: rgba(255, 255, 255, 0.5);
@@ -112,7 +119,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        .search-btn, .submit-btn {
+        .search-btn,
+        .submit-btn {
             background-color: #0a3b57;
             color: rgb(255, 250, 250);
             padding: 10px 20px;
@@ -127,7 +135,8 @@
             font-size: 18px;
         }
 
-        .search-btn:hover, .submit-btn:hover {
+        .search-btn:hover,
+        .submit-btn:hover {
             background-color: #32648d;
         }
 
@@ -148,15 +157,16 @@
             font-family: monospace;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        .search-container {
-   
-    background-color: rgba(255, 255, 255, 0.5);
-   
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
 
-/* Adjust button width to match the input */
+        .search-container {
+
+            background-color: rgba(255, 255, 255, 0.5);
+
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Adjust button width to match the input */
 
 
         .terminal .line {
@@ -209,76 +219,93 @@
         .nav-treeview ul {
             list-style-type: none;
         }
+
         .nav-treeview ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.nav-treeview li {
-    position: relative;
-    
-}
+        .nav-treeview li {
+            position: relative;
 
-.nav-treeview a {
-    text-decoration: none;
-    color: #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.nav-section a:hover {
-        color: #021e3a; /* Change this color to your preferred hover color */
-        background-color: rgba(177, 233, 243, 0.936); /* Optional: Add background color on hover */
-        transition: color 0.3s ease, background-color 0.3s ease;
-    }
-.toggle-btn {
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-}
+        }
 
-.sub-menu {
-    display: none;
-    padding-left: 20px;
-}
-.scan-container {
-    display: flex; /* Use flexbox to arrange items in a row */
-    justify-content: space-between; /* Space items evenly */
-    margin: 10px 0; /* Add some margin for spacing */
-}
+        .nav-treeview a {
+            text-decoration: none;
+            color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.scan-item {
-    width: 130px; /* Set a fixed width for scan items */
-    border-radius: 5px; /* Rounded corners */
-    text-align: center; /* Center text */
-}
+        .nav-section a:hover {
+            color: #021e3a;
+            /* Change this color to your preferred hover color */
+            background-color: rgba(177, 233, 243, 0.936);
+            /* Optional: Add background color on hover */
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
 
-.scan-item a {
-    color: white; /* Text color */
-    text-decoration: none; /* Remove underline */
-    display: block; /* Block display for full clickable area */
-    padding: 10px; /* Padding for clickable area */
-}
-#timer-container {
-    position: absolute;
-    top: 70px;
-    right: 50px;
-   
-    padding: 10px;
-    border-radius: 5px;
-  
-    font-size: 16px;
-    font-weight: bold;
-    display: inline-block;
-}
-   
+        .toggle-btn {
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .sub-menu {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .scan-container {
+            display: flex;
+            /* Use flexbox to arrange items in a row */
+            justify-content: space-between;
+            /* Space items evenly */
+            margin: 10px 0;
+            /* Add some margin for spacing */
+        }
+
+        .scan-item {
+            width: 130px;
+            /* Set a fixed width for scan items */
+            border-radius: 5px;
+            /* Rounded corners */
+            text-align: center;
+            /* Center text */
+        }
+
+        .scan-item a {
+            color: white;
+            /* Text color */
+            text-decoration: none;
+            /* Remove underline */
+            display: block;
+            /* Block display for full clickable area */
+            padding: 10px;
+            /* Padding for clickable area */
+        }
+
+        #timer-container {
+            position: absolute;
+            top: 70px;
+            right: 50px;
+
+            padding: 10px;
+            border-radius: 5px;
+
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+        }
 
 
-.nav-treeview li.active .sub-menu {
-    display: block;
-}
+
+        .nav-treeview li.active .sub-menu {
+            display: block;
+        }
 
 
         .nav-treeview ul li a {
@@ -292,7 +319,7 @@
         .nav-treeview ul li a i {
             margin-right: 10px;
         }
-      
+
         .main-content {
             margin-left: 350px;
             display: flex;
@@ -312,75 +339,76 @@
         }
 
         /* General UID Box Styling */
-/* General UID and Mobile Box Styling */
-.uid-box {
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    margin: 2px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-.mobile-box {
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    margin: 2px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9; 
-}
+        /* General UID and Mobile Box Styling */
+        .uid-box {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
 
-/* Mobile Section Styling */
-.flag-icon {
-    width: 20px;
-    height: 30px;
-    vertical-align: left;
-}
+        .mobile-box {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
 
-.mobile-number {
-    display: flex;
-   
-}
+        /* Mobile Section Styling */
+        .flag-icon {
+            width: 20px;
+            height: 30px;
+            vertical-align: left;
+        }
 
-/* Email Section Styling */
-.email-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .mobile-number {
+            display: flex;
 
-.email-box {
-    width: 110px;
-    height: 30px;
-    padding: 0 5px;
-    text-align: center;
-    margin: 2px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
+        }
 
-.email-container span {
-    margin: 0 5px;
-    font-weight: bold;
-}
+        /* Email Section Styling */
+        .email-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
+        .email-box {
+            width: 110px;
+            height: 30px;
+            padding: 0 5px;
+            text-align: center;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .email-container span {
+            margin: 0 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
             <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
                 <a href="index.html">
-                    <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
+                    <img src="/static/Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
                 </a>
             </div>
             <div class="profile">
-                <div class="profile-picture" style="text-align: center;">
-                    <img src="./photos/Saty.png" alt="Profile Picture" style="border-radius: 50%; border: 2px solid #fff;">
+                <div class="profile-picture">
+                    <img id="image_path" src="" alt="Profile Picture">
                 </div>
                 <div style="text-align: center; margin-top: 10px;">
                     <p style="font-weight: bold;">UID</p>
@@ -393,11 +421,11 @@
                         <input type="text" value="6" readonly class="uid-box">
                     </div>
                 </div>
-            
+
                 <!-- Mobile Section -->
                 <div class="mobile" style="text-align: center; margin-top: 20px;">
                     <div style="display: flex; justify-content: center; align-items: center;">
-                        <img src="./photos/png-transparent-india-flags-icon.png" alt="Indian Flag" class="flag-icon">
+                        <img src="/static/Logo/india-flag.png" alt="Indian Flag" class="flag-icon">
                         <div class="mobile-number" style="display: flex; margin-left: 5px;">
                             <input type="text" value="9" readonly class="mobile-box">
                             <input type="text" value="8" readonly class="mobile-box">
@@ -412,7 +440,7 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <!-- Email Section -->
                 <div class="email" style="text-align: center; margin-top: 20px;">
                     <div class="email-container">
@@ -422,7 +450,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="nav-section">
                 <div class="nav-heading" onclick="toggleNavTreeview('scanning-treeview')">
                     <i class="fa fa-bullseye"></i>
@@ -442,7 +470,7 @@
                                 <li><a href="Advance-IP-Scan.html">Advanced Scan</a></li>
                             </ul>
                         </li>
-                        
+
                         <!-- Web Scanning -->
                         <li class="dropdown-item">
                             <a href="#" onclick="toggleSubMenu('web-scan-submenu')">
@@ -454,7 +482,7 @@
                                 <li><a href="Advance-Web-scan.html">Advanced Scan</a></li>
                             </ul>
                         </li>
-                        
+
                         <!-- App Scanning -->
                         <li class="dropdown-item">
                             <a href="#" onclick="toggleSubMenu('app-scan-submenu')">
@@ -466,7 +494,7 @@
                                 <li><a href="advance-app-scan.html">Advanced Scan</a></li>
                             </ul>
                         </li>
-                        
+
                         <!-- Cloud Scanning -->
                         <li class="dropdown-item">
                             <a href="#" onclick="toggleSubMenu('cloud-scan-submenu')">
@@ -478,7 +506,7 @@
                                 <li><a href="Advance-cloud-scanning.html">Advanced Scan</a></li>
                             </ul>
                         </li>
-                        
+
                         <!-- Network Scanning -->
                         <li class="dropdown-item">
                             <a href="#" onclick="toggleSubMenu('network-scan-submenu')">
@@ -493,7 +521,7 @@
                     </ul>
                 </div>
             </div>
-            
+
         </div>
 
         <!-- Main Content Area -->
@@ -502,30 +530,35 @@
                 <h2 style="color: rgb(2, 2, 2);">Advance Cloud Scanning</h2>
                 <div id="timer-container">
                     <span>Time Spent: </span>
-                    <span id="time-spent" style="font-size: 20px; font-weight: bold; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc; display: inline-block; text-align: center;">00:00:00</span>
+                    <span id="time-spent"
+                        style="font-size: 20px; font-weight: bold; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc; display: inline-block; text-align: center;">00:00:00</span>
                 </div>
                 <!-- Flex container for Cloud Service Search and Stats -->
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
                     <!-- Cloud Service Search Input -->
-                    <input type="text" id="cloud-scan-input" placeholder="Enter Cloud Service Name or URL" class="search-input" style="flex: 1; margin-right: 20px; margin-top: 15px;">
-<button onclick="scanCloud()" class="search-btn" style="margin-left: -10px;"><i class="fa fa-search"></i></button>
+                    <input type="text" id="cloud-scan-input" placeholder="Enter Cloud Service Name or URL"
+                        class="search-input" style="flex: 1; margin-right: 20px; margin-top: 15px;">
+                    <button onclick="scanCloud()" class="search-btn" style="margin-left: -10px;"><i
+                            class="fa fa-search"></i></button>
 
-                    
+
                     <!-- Total Scans Display -->
                     <div style="margin-left: 20px;">
                         <span>Total Scans: </span>
-                        <span id="total-scans" style="font-size: 20px; font-weight: bold; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc; display: inline-block; width: 80px; text-align: center;">000</span>
+                        <span id="total-scans"
+                            style="font-size: 20px; font-weight: bold; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc; display: inline-block; width: 80px; text-align: center;">000</span>
                     </div>
-                    
+
                     <!-- Scan ID Dropdown -->
                     <div style="margin-left: 20px;">
                         <label for="scan-id-select">Scan ID:</label>
-                        <select id="scan-id-select" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: white;">
+                        <select id="scan-id-select"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: white;">
                             <option value="" disabled selected>Select Scan ID</option>
                         </select>
                     </div>
                 </div>
-            
+
                 <!-- Terminal Section -->
                 <section class="charts">
                     <div class="chart">
@@ -540,211 +573,268 @@
                         <h3 class="chart-title">Severities</h3>
                         <canvas id="severityDonut" style="margin-left: 60px;"></canvas>
                     </div>
-                 
+
                 </section>
-            
+
                 <div class="terminal" id="terminal" style="margin-top: 40px;">
                     <h3 style="color: white;">Terminal Output</h3>
                 </div>
-            
+
                 <!-- Download Report Button -->
                 <div class="submit-container">
                     <button onclick="downloadReport()" class="submit-btn">Download Report as PDF</button>
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-let totalScans = 0;
-const scanIds = [];
+        async function fetchUserProfile() {
+            try {
+                const access_token = localStorage.getItem('access_token');
 
-function scanCloud() {
-    const cloudName = document.getElementById('cloud-scan-input').value;
-    const terminal = document.getElementById('terminal');
+                if (!access_token) { 
+                    throw new Error("Access token is missing");
+                }
 
-    // Increment total scans
-    totalScans++;
-    const scanId = `SCAN-${totalScans}`;
-    scanIds.push(scanId); // Store scan ID
+                const response = await fetch("http://localhost:8000/user/me", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${access_token}`,
+                        "Content-Type": "application/json"
+                    }
+                });
 
-    // Update total scans displayed
-    document.getElementById('total-scans').innerText = String(totalScans).padStart(3, '0');
-    
-    // Update scan ID dropdown
-    const scanIdSelect = document.getElementById('scan-id-select');
-    const option = document.createElement('option');
-    option.value = scanId;
-    option.text = scanId;
-    scanIdSelect.appendChild(option);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch user profile. Status: ${response.status}`);
+                }
 
-    // Terminal output
-    terminal.innerHTML += `<div class="line">Scanning cloud service: ${cloudName} (ID: ${scanId})...</div>`;
-    setTimeout(() => {
-        terminal.innerHTML += `<div class="line">Cloud scan completed for ID: ${scanId}.</div>`;
-    }, 2000);
-}
+                const userData = await response.json();
 
-const { jsPDF } = window.jspdf;
+                // Update HTML elements with user data
+                document.getElementById("image_path").src = "/" + userData.image_path;
 
+                document.getElementById("uid").textContent = userData.username;
 
-window.onload = function() {
-    let hours = 0;
-    let minutes = 0;
-    let seconds = 0;
-    
-    const timeSpentElement = document.getElementById('time-spent');
+                // Update mobile number dynamically
+                const mobileContainer = document.getElementById("mobile");
+                mobileContainer.innerHTML = "";
+                userData.mobile.split('').forEach(num => {
+                    const box = document.createElement("input");
+                    box.type = "text";
+                    box.value = num;
+                    box.className = "mobile-box";
+                    box.readOnly = true;
+                    mobileContainer.appendChild(box);
+                });
 
-    function updateTimer() {
-        seconds++;
+                // Split email into user and domain
+                const [emailUser, emailDomain] = userData.email.split("@");
+                document.getElementById("email_user").textContent = emailUser;
+                document.getElementById("email_domain").textContent = emailDomain;
 
-        if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
+                console.log("User profile fetched successfully:", userData);
+            } catch (error) {
+                console.error("Error fetching user profile:", error);
+                alert("Error fetching user profile: " + error.message);
+            }
         }
 
-        if (minutes >= 60) {
-            minutes = 0;
-            hours++;
+        // Call fetchUserProfile when the page loads
+        window.onload = fetchUserProfile;
+    </script>
+
+    <script>
+        let totalScans = 0;
+        const scanIds = [];
+
+        function scanCloud() {
+            const cloudName = document.getElementById('cloud-scan-input').value;
+            const terminal = document.getElementById('terminal');
+
+            // Increment total scans
+            totalScans++;
+            const scanId = `SCAN-${totalScans}`;
+            scanIds.push(scanId); // Store scan ID
+
+            // Update total scans displayed
+            document.getElementById('total-scans').innerText = String(totalScans).padStart(3, '0');
+
+            // Update scan ID dropdown
+            const scanIdSelect = document.getElementById('scan-id-select');
+            const option = document.createElement('option');
+            option.value = scanId;
+            option.text = scanId;
+            scanIdSelect.appendChild(option);
+
+            // Terminal output
+            terminal.innerHTML += `<div class="line">Scanning cloud service: ${cloudName} (ID: ${scanId})...</div>`;
+            setTimeout(() => {
+                terminal.innerHTML += `<div class="line">Cloud scan completed for ID: ${scanId}.</div>`;
+            }, 2000);
         }
 
-        let formattedTime = 
-            (hours < 10 ? "0" + hours : hours) + ":" + 
-            (minutes < 10 ? "0" + minutes : minutes) + ":" + 
-            (seconds < 10 ? "0" + seconds : seconds);
-
-        timeSpentElement.textContent = formattedTime;
-    }
-
-    setInterval(updateTimer, 1000);
-};
+        const { jsPDF } = window.jspdf;
 
 
-function toggleNavTreeview(treeviewId) {
-    const treeview = document.getElementById(treeviewId);
-    const toggleIcon = treeview.previousElementSibling.querySelector('.right');
-    if (treeview.style.display === "none" || !treeview.style.display) {
-        treeview.style.display = "block";
-        toggleIcon.classList.remove('fa-angle-right');
-        toggleIcon.classList.add('fa-angle-down');
-    } else {
-        treeview.style.display = "none";
-        toggleIcon.classList.remove('fa-angle-down');
-        toggleIcon.classList.add('fa-angle-right');
-    }
-}
+        window.onload = function () {
+            let hours = 0;
+            let minutes = 0;
+            let seconds = 0;
 
-document.querySelectorAll('.toggle-btn').forEach(function (toggle) {
-    toggle.addEventListener('click', function () {
-        const parentLi = this.parentElement.parentElement;
-        parentLi.classList.toggle('active');
+            const timeSpentElement = document.getElementById('time-spent');
 
-        // Change the plus to minus when submenu is open
-        if (parentLi.classList.contains('active')) {
-            this.textContent = '-';
-        } else {
-            this.textContent = '+';
-        }
-    });
-});
+            function updateTimer() {
+                seconds++;
 
-function downloadReport() {
-    const doc = new jsPDF();
-    doc.text("Cloud Scanning Report", 10, 10);
-    doc.text("Cloud Service: " + document.getElementById('cloud-name-input').value, 10, 20);
-    doc.text("Scan Output:", 10, 30);
+                if (seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                }
 
-    const terminalOutput = document.getElementById('terminal').innerText;
-    const outputLines = terminalOutput.split('\n').slice(1); // Skip the title line
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
 
-    outputLines.forEach((line, index) => {
-        doc.text(line, 10, 40 + (index * 10));
-    });
+                let formattedTime =
+                    (hours < 10 ? "0" + hours : hours) + ":" +
+                    (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                    (seconds < 10 ? "0" + seconds : seconds);
 
-    doc.save('cloud_scanning_report.pdf');
-}
+                timeSpentElement.textContent = formattedTime;
+            }
 
-// Chart initialization
-const ctx1 = document.getElementById('severityTrend').getContext('2d');
-const ctx2 = document.getElementById('severityDonut').getContext('2d');
-const ctx3 = document.getElementById('issuesHistogram').getContext('2d');
+            setInterval(updateTimer, 1000);
+        };
 
-// Updated Severity Trend Chart with Dates and More Data
-const severityTrendChart = new Chart(ctx1, {
-    type: 'line',
-    data: {
-        labels: ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05', '2023-10-06', '2023-10-07'],
-        datasets: [{
-            label: 'Severity Levels',
-            data: [12, 15, 9, 17, 14, 20, 22],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    }
-});
 
-const severityDonutChart = new Chart(ctx2, {
-    type: 'doughnut',
-    data: {
-        labels: ['Critical', 'High', 'Medium', 'Low'],
-        datasets: [{
-            label: 'Severities',
-            data: [300, 50, 100, 50],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-        }]
-    }
-});
-window.onload = function() {
-    let hours = 0;
-    let minutes = 0;
-    let seconds = 0;
-    
-    const timeSpentElement = document.getElementById('time-spent');
-
-    function updateTimer() {
-        seconds++;
-
-        if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
+        function toggleNavTreeview(treeviewId) {
+            const treeview = document.getElementById(treeviewId);
+            const toggleIcon = treeview.previousElementSibling.querySelector('.right');
+            if (treeview.style.display === "none" || !treeview.style.display) {
+                treeview.style.display = "block";
+                toggleIcon.classList.remove('fa-angle-right');
+                toggleIcon.classList.add('fa-angle-down');
+            } else {
+                treeview.style.display = "none";
+                toggleIcon.classList.remove('fa-angle-down');
+                toggleIcon.classList.add('fa-angle-right');
+            }
         }
 
-        if (minutes >= 60) {
-            minutes = 0;
-            hours++;
+        document.querySelectorAll('.toggle-btn').forEach(function (toggle) {
+            toggle.addEventListener('click', function () {
+                const parentLi = this.parentElement.parentElement;
+                parentLi.classList.toggle('active');
+
+                // Change the plus to minus when submenu is open
+                if (parentLi.classList.contains('active')) {
+                    this.textContent = '-';
+                } else {
+                    this.textContent = '+';
+                }
+            });
+        });
+
+        function downloadReport() {
+            const doc = new jsPDF();
+            doc.text("Cloud Scanning Report", 10, 10);
+            doc.text("Cloud Service: " + document.getElementById('cloud-name-input').value, 10, 20);
+            doc.text("Scan Output:", 10, 30);
+
+            const terminalOutput = document.getElementById('terminal').innerText;
+            const outputLines = terminalOutput.split('\n').slice(1); // Skip the title line
+
+            outputLines.forEach((line, index) => {
+                doc.text(line, 10, 40 + (index * 10));
+            });
+
+            doc.save('cloud_scanning_report.pdf');
         }
 
-        let formattedTime = 
-            (hours < 10 ? "0" + hours : hours) + ":" + 
-            (minutes < 10 ? "0" + minutes : minutes) + ":" + 
-            (seconds < 10 ? "0" + seconds : seconds);
+        // Chart initialization
+        const ctx1 = document.getElementById('severityTrend').getContext('2d');
+        const ctx2 = document.getElementById('severityDonut').getContext('2d');
+        const ctx3 = document.getElementById('issuesHistogram').getContext('2d');
 
-        timeSpentElement.textContent = formattedTime;
-    }
+        // Updated Severity Trend Chart with Dates and More Data
+        const severityTrendChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05', '2023-10-06', '2023-10-07'],
+                datasets: [{
+                    label: 'Severity Levels',
+                    data: [12, 15, 9, 17, 14, 20, 22],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
 
-    setInterval(updateTimer, 1000);
-};
+        const severityDonutChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Critical', 'High', 'Medium', 'Low'],
+                datasets: [{
+                    label: 'Severities',
+                    data: [300, 50, 100, 50],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                }]
+            }
+        });
+        window.onload = function () {
+            let hours = 0;
+            let minutes = 0;
+            let seconds = 0;
+
+            const timeSpentElement = document.getElementById('time-spent');
+
+            function updateTimer() {
+                seconds++;
+
+                if (seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
+
+                let formattedTime =
+                    (hours < 10 ? "0" + hours : hours) + ":" +
+                    (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                    (seconds < 10 ? "0" + seconds : seconds);
+
+                timeSpentElement.textContent = formattedTime;
+            }
+
+            setInterval(updateTimer, 1000);
+        };
 
 
-const issuesHistogramChart = new Chart(ctx3, {
-    type: 'bar',
-    data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
-        datasets: [{
-            label: 'Issues Detected',
-            data: [12, 19, 3, 5],
-            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-            borderColor: 'rgba(153, 102, 255, 1)',
-            borderWidth: 1
-        }]
-    }
-});
+        const issuesHistogramChart = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+                datasets: [{
+                    label: 'Issues Detected',
+                    data: [12, 19, 3, 5],
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
     </script>
 </body>
+
 </html>

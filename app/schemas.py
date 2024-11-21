@@ -46,10 +46,8 @@ class isSubscribedSchema(BaseModel):
 
 class UserSchema(BaseModel):
     username: str
-    name: str
-    email: EmailStr
+    email: str
     mobile: Optional[str] = None
-    address: Optional[str] = None
     image_path: Optional[str] = None  # Add this field for profile picture URL
 
     class Config:

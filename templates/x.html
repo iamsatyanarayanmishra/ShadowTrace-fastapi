@@ -3,276 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vulnerability Scanner Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            display: flex; /* Use flexbox for layout */
-        }
-
-      
-    
-
-        .charts {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Three charts per row */
-            gap: 20px;
-            padding: 20px;
-            flex: 1; /* Allow the charts to take available space */
-        }
-
-        .chart {
-            width: 100%;
-            height: 200px;
-            border-radius: 5px;
-        }
-
-        .chart-title {
-            text-align: center;
-            margin: 10px 0;
-        }
-        .sidebar {
-            width: 350px;
-            background-color: rgba(13, 31, 48, 0.6);
-            position: fixed;
-            height: 100vh;
-        }
-
-        .profile {
-            margin-top: 70px;
-            padding: 20px;
-        }
-
-        .profile img {
-            width: 100px;
-            border-radius: 50%;
-        }
-
-        .nav-section {
-            margin-top: 15px;
-        }
-
-        .nav-heading {
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            color: white;
-        }
-
-        .nav-heading i {
-            width: 30px;
-        }
-
-        .nav-treeview {
-            display: none;
-            padding-left: 20px;
-        }
-
-        .nav-treeview ul {
-            list-style-type: none;
-        }
-
-        .nav-treeview ul li a {
-            display: flex;
-            align-items: center;
-            color: white;
-            text-decoration: none;
-            margin: 5px 0;
-        }
-
-        .nav-treeview ul li a i {
-            margin-right: 10px;
-        }
-        .container {
-            margin-left: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: calc(100% - 300px);
-        }
-    </style>
-    <script defer>
-  function toggleNavTreeview(id) {
-            const treeview = document.getElementById(id);
-            if (treeview.style.display === 'block') {
-                treeview.style.display = 'none';
-                treeview.previousElementSibling.querySelector('.fa-angle-down').classList.replace('fa-angle-down', 'fa-angle-right');
-            } else {
-                treeview.style.display = 'block';
-                treeview.previousElementSibling.querySelector('.fa-angle-right').classList.replace('fa-angle-right', 'fa-angle-down');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const scanTime = new Date().toLocaleTimeString();
-            const finishTime = new Date(new Date().getTime() + 30 * 60000).toLocaleTimeString(); // 30 minutes later
-            const testsConducted = 5;
-            const totalTime = "30 minutes";
-
-            document.getElementById('scanTime').textContent = scanTime;
-            document.getElementById('finishTime').textContent = finishTime;
-            document.getElementById('testsConducted').textContent = testsConducted;
-            document.getElementById('totalTime').textContent = totalTime;
-
-            // Severity Trend (Line Chart)
-            const severityTrendCtx = document.getElementById('severityTrend').getContext('2d');
-            new Chart(severityTrendCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    datasets: [{
-                        label: 'Severity Trend',
-                        data: [10, 15, 5, 20],
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            // Severities Donut Chart
-            const severityDonutCtx = document.getElementById('severityDonut').getContext('2d');
-            new Chart(severityDonutCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['High', 'Medium', 'Low', 'Information', 'Best Practice'],
-                    datasets: [{
-                        label: 'Severities',
-                        data: [12, 19, 3, 5, 2],
-                        backgroundColor: [
-                            '#ff6384',
-                            '#36a2eb',
-                            '#ffce56',
-                            '#4bc0c0',
-                            '#9966ff'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true
-                }
-            });
-
-            // Issues Histogram
-            const issuesHistogramCtx = document.getElementById('issuesHistogram').getContext('2d');
-            new Chart(issuesHistogramCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Critical', 'High', 'Medium', 'Low', 'Information'],
-                    datasets: [{
-                        label: 'Issues Count',
-                        data: [5, 15, 10, 2, 8],
-                        backgroundColor: [
-                            '#ff3838',
-                            '#ff9e2c',
-                            '#f6f400',
-                            '#2cf600',
-                            '#00b4ff'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            // Dropdown functionality for scanning treeview
-            const dropdownHeading = document.querySelector('.nav-heading');
-            const treeview = document.querySelector('.nav-treeview');
-
-            dropdownHeading.addEventListener('click', () => {
-                treeview.style.display = treeview.style.display === 'none' || treeview.style.display === '' ? 'block' : 'none';
-            });
-        });
-    </script>
+    <title>X Messenger</title>
+    <link rel="icon" href="./Logo/ShadowTrace.svg" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="sidebar">
-        <div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
-            <a href="index.html">
-                <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" style="height: 60px;">
-            </a>
-        </div>
-
-        <div class="profile">
-            <div class="profile-picture">
-                <img src="./photos/Saty.png" alt="Profile Picture">
+<style>
+    .chat-item:hover {
+        background-color: #122633; /* X (Twitter) Blue background on hover */
+        color: #fff; /* Change text color to white */
+    }
+</style>
+<body style="font-family: 'Nova Square', cursive; margin: 0; display: flex; flex-direction: column; align-items: center; height: 100vh; background-color: #e5e5e5; position: relative; overflow: hidden;">
+    <div class="background-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+        <video class="background-video" autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="./Video/Index video.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);"></div>
+    </div>
+    
+    <div class="header" style="display: flex; align-items: center; width: 100%; padding: 10px; background-color: transparent;">
+        <a href="index.html">
+            <img src="./Logo/Shadowtrace-Kristellar.png" alt="Company Logo" class="company-logo" style="height: 60px; margin-left: 20px;">
+        </a>
+    </div>
+    
+    <div class="mac-desktop" style="width: 80%; height: 80%; background-color: #ffffff; border-radius: 15px; position: relative; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); overflow: hidden; margin-top: 20px; margin-left: 40px;">
+        <div class="top-bar" style="height: 30px; background: #ddd; border-bottom: 1px solid #ccc;"></div>
+        <div class="screen" style="width: 100%; height: calc(100% - 70px); display: flex; flex-direction: column;">
+            <div class="container" style="display: flex; width: 100%; height: 100%;">
+                <div class="sidebar" style="width: 25%; background-color: #111f28; color: #fff; display: flex; flex-direction: column;">
+                    <a href="dashboard.html" class="back-arrow" style="color: #fff; text-decoration: none; font-size: 24px; padding: 15px;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div class="sidebar-header" style="display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #1a8ed1;">
+                        <img src="./photos/Twitter-X-Logo-Vector-01-2-removebg-preview.png" alt="X Logo" style="height: 30px; margin-right: 10px;">
+                        <h2 style="margin: 0;">Twitter</h2>
+                    </div>
+                    <ul class="chat-list" style="list-style: none; padding: 0; margin: 0; overflow-y: auto;">
+                        <li class="chat-item" onclick="openChat('chat1')" style="display: flex; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #1a8ed1;">
+                            <img src="photos/john.jpg" alt="John Doe" class="profile-pic" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                            <span>John Doe</span>
+                        </li>
+                        <li class="chat-item" onclick="openChat('chat2')" style="display: flex; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #1a8ed1;">
+                            <img src="photos/jane.png" alt="Jane Smith" class="profile-pic" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                            <span>Jane Smith</span>
+                        </li>
+                        <li class="chat-item" onclick="openChat('chat3')" style="display: flex; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #1a8ed1;">
+                            <img src="photos/priyanka.JPG" alt="Alice Johnson" class="profile-pic" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                            <span>Alice Johnson</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chat-area" style="width: 75%; background-color: #f0f0f0; padding: 20px; display: flex; flex-direction: column; overflow-y: auto;">
+                    <div id="chat1" class="chat" style="display: none;">
+                        <div class="message received" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-start;">
+                            <img src="photos/john.jpg" alt="John Doe" class="profile-pic-small" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                            <div class="message-content" style="background-color: #1da1f2; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Hello there!</div>
+                        </div>
+                        <div class="message sent" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="message-content" style="background-color:#ffffff ; color: #000; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Hi John!</div>
+                        </div>
+                    </div>
+                    <div id="chat2" class="chat" style="display: none;">
+                        <div class="message received" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-start;">
+                            <img src="photos/jane.png" alt="Jane Smith" class="profile-pic-small" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                            <div class="message-content" style="background-color: #1da1f2; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Hey Jane!</div>
+                        </div>
+                        <div class="message sent" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="message-content" style="background-color: #ffffff; color: #000; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Hi there!</div>
+                        </div>
+                    </div>
+                    <div id="chat3" class="chat" style="display: none;">
+                        <div class="message received" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-start;">
+                            <img src="photos/priyanka.JPG" alt="Alice Johnson" class="profile-pic-small" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                            <div class="message-content" style="background-color: #1da1f2; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Good morning Alice!</div>
+                        </div>
+                        <div class="message sent" style="display: flex; align-items: center; margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="message-content" style="background-color: #ffffff; color: #000; padding: 10px 15px; border-radius: 20px; max-width: 60%; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Good morning!</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p>Name: Satyajit_p_Sambit</p>
-            <p>Mob No: 123-456-7890</p>
-            <p>UId: 123456789012345</p>
         </div>
-
-        <div class="nav-section">
-            <div class="nav-heading" onclick="toggleNavTreeview('social-media-treeview')">
-                <i class="fa fa-bullseye"></i>
-                <span>Scanning</span>
-
-                <i class="fa fa-angle-right right"></i>
-            </div>
-            <div class="nav-treeview" id="social-media-treeview" style="margin-top: 20px;">
-          <ul>
-                    <li><a href="Ip.html"><i class="fa fa-network-wired"></i>IP Scanning</a></li>
-                    <li><a href="web.html"><i class="fa fa-search"></i>Web Scanning</a></li>
-                    <li><a href="app-scan.html"><i class="fa fa-mobile-alt"></i>App Scanning</a></li>
-                    <li><a href="cloud-scan.html"><i class="fa fa-cloud"></i>Cloud Scanning</a></li>
-                    <li><a href="net.html"><i class="fa fa-globe"></i>Network Scanning</a></li>
-                </ul>
-            </div>
-        </div>
-
-   
+        <div class="bottom-bar" style="height: 40px; background: #ddd; border-top: 1px solid #ccc; position: absolute; bottom: 0; width: 100%;"></div>
     </div>
 
-    <div class="container">
-        <header>
-            <h1>Vulnerability Scanner Dashboard</h1>
-        </header>
-
-        <section class="overview">
-            <h2>Security Overview</h2>
-            <div class="info-grid">
-                <div>Scan Start Time: <span id="scanTime"></span></div>
-                <div>Finish Time: <span id="finishTime"></span></div>
-                <div>Tests Conducted: <span id="testsConducted"></span></div>
-                <div>Total Time: <span id="totalTime"></span></div>
-            </div>
-        </section>
-
-        <section class="charts">
-            <div class="chart">
-                <h3 class="chart-title">Severity Trend</h3>
-                <canvas id="severityTrend"></canvas>
-            </div>
-            <div class="chart">
-                <h3 class="chart-title">Severities Donut</h3>
-                <canvas id="severityDonut"></canvas>
-            </div>
-            <div class="chart">
-                <h3 class="chart-title">Issues Histogram</h3>
-                <canvas id="issuesHistogram"></canvas>
-            </div>
-        </section>
-    </div>
+    <script>
+        function openChat(chatId) {
+            var chats = document.getElementsByClassName('chat');
+            for (var i = 0; i < chats.length; i++) {
+                chats[i].style.display = 'none';
+            }
+            document.getElementById(chatId).style.display = 'block';
+        }
+    </script>
 </body>
 </html>
+
